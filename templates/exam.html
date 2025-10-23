@@ -3,33 +3,52 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>{{exam['title']}}</title>
+   <title>{% block title %}{{exam['title']}}{% endblock %}</title>
+   <link rel="stylesheet" href="{{url_for('static', filename='css/exam.css')}}">
 </head>
 <body>
+
    <header>
-
+      <div class="head-exam">
+         <h2>Manvi Studios</h2>
+         <a href="#">
+            <img src="{{ url_for('static', filename='images/post_amanda.jpeg') }}" alt="Imagem do Usuário">
+            <span>Usuário</span>
+         </a>
+      </div>
    </header>
-   <main>
-      <h2>{{ exam['title'] }}</h2>
-      <p>{{ exam['description'] }}</p>
 
-      <form id="examForm" action="{{ url_for('submit_result') }}" method="POST">
-         <input type="hidden" name="exam_id" value="{{ exam['id'] }}">
-         {% for q in questions %}
-            <div class="questions">
-               <p><strong>{{ loop.index }}. {{ q['statement'] }}</strong></p>
-               <label><input type="radio" name="q{{ q['id'] }}" value="A"> {{ q['opt_a'] }} </label><br>
-               <label><input type="radio" name="q{{ q['id'] }}" value="B"> {{ q['opt_b'] }} </label><br>
-               <label><input type="radio" name="q{{ q['id'] }}" value="C"> {{ q['opt_c'] }}</label><br>
-               <label><input type="radio" name="q{{ q['id'] }}" value="D"> {{ q['opt_d'] }}</label><br>
-            </div>
-         {% endfor %}
-         <button type="submit" id="SubmitExame">Enviar Respostas</button>
-      </form>
+   <main>
+
+      <div class="main-second">
+
+      <div class="container-exam">
+         <h2>{% block exam_title %}{{ exam['title'] }}{% endblock %}</h2>
+         <p>{% block exam_description %}{{ exam['description'] }}{% endblock %}</p>
+   
+         {% block exam_content %}
+         <form id="examForm" action="{{ url_for('submit_result') }}" method="POST">
+            <input type="hidden" name="exam_id" value="{{ exam['id'] }}">
+            {% for q in questions %}
+               <div class="questions">
+                  <p><strong>{{ loop.index }}. {{ q['statement'] }}</strong></p>
+                  <label><input type="radio" name="q{{ q['id'] }}" value="A"> {{ q['opt_a'] }} </label><br>
+                  <label><input type="radio" name="q{{ q['id'] }}" value="B"> {{ q['opt_b'] }} </label><br>
+                  <label><input type="radio" name="q{{ q['id'] }}" value="C"> {{ q['opt_c'] }}</label><br>
+                  <label><input type="radio" name="q{{ q['id'] }}" value="D"> {{ q['opt_d'] }}</label><br>
+               </div>
+            {% endfor %}
+            <button type="submit" id="SubmitExame">Enviar Respostas</button>
+         </form>
+         {% endblock %}
+      </div>
+      </div>
 
    </main>
-   <footer>
 
+   <footer>
+      {% block footer %}{% endblock %}
    </footer>
+
 </body>
 </html>
