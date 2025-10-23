@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/oftenquestions.css')}}">
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='images/logo.png')}}">
+    <title>Perguntas Frequentes - FAQs</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" 
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+
+
+
+<body>
+
+    <nav class="navbar">
+        <a href="{{url_for('static', filename='images/logo.png')}}" class="logo">Manvi</a>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('main') }}">Início</a></li>
+            <li><a href="{{ url_for('connections') }}">Conexões</a></li>
+            <li><a href="{{ url_for('about-us') }}">Sobre Nós</a></li>
+            <li><a href="{{ url_for('oftenquestions') }}">FAQs</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+         <img src="{{url_for('static', filename='images/Frequentes.png')}}" alt="Banner Perguntas Frequentes" class="hero-bg">
+    </div>
+
+
+    <div class="phrase">
+        <h1>"A mente que se abre a uma nova ideia jamais voltará ao seu tamanho original."</h1>
+        <a href="https://brasilescola.uol.com.br/biografia/albert-einstein.htm"><h2>— Albert Einstein</h2></a>
+    </div>
+
+
+
+    <div class="wrapper">
+        <div class="container">
+
+
+            <input type="radio" name="slide" id="c1" checked>
+            <label for="c1" class="card">
+                <div class="row">
+                   <div class="icon">1</div>
+                   <div class="description">
+                    <h4>Como se inscrever e criar uma conta</h4>
+                    <p>Acessando a página de cadastro</p>
+                   </div>
+                </div>
+            </label>
+
+            <input type="radio" name="slide" id="c2">
+            <label for="c2" class="card">
+                <div class="row">
+                   <div class="icon">2</div>
+                   <div class="description">
+                    <h4></h4>
+                    <p>Gets better every day stay tuned</p>
+                   </div>
+                </div>
+            </label>
+
+            <input type="radio" name="slide" id="c3">
+            <label for="c3" class="card">
+                <div class="row">
+                   <div class="icon">3</div>
+                   <div class="description">
+                    <h4>Globalization</h4>
+                    <p>Help people all over the money</p>
+                   </div>
+                </div>
+            </label>
+
+            <input type="radio" name="slide" id="c4">
+            <label for="c4" class="card">
+                <div class="row">
+                   <div class="icon">4</div>
+                   <div class="description">
+                    <h4>Lol</h4>
+                    <p>Help people all over the money</p>
+                   </div>
+                </div>
+            </label>
+
+            <input type="radio" name="slide" id="c5">
+            <label for="c5" class="card">
+                <div class="row">
+                   <div class="icon">5</div>
+                   <div class="description">
+                    <h4>Omg</h4>
+                    <p>Help people all over the money</p>
+                   </div>
+                </div>
+            </label>
+
+            <input type="radio" name="slide" id="c6">
+            <label for="c6" class="card">
+                <div class="row">
+                   <div class="icon">6</div>
+                   <div class="description">
+                    <h4>Tech</h4>
+                    <p>Help people all over the money</p>
+                   </div>
+                </div>
+            </label>
+
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+
+    <footer>
+        <div class="serious">
+        <a href="privacy-policy.html">Política de Privacidade</a>
+        <h1>🔭</h1>
+        <a href="terms-of-service.html">Termos de Serviço</a> 
+        </div>
+        
+        
+        <div class="social-link-general">
+        <a href="mailto:manvistudiosms@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/manvi-studios-23b13b388/"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/manvistudiosms/"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+    
+        <p>&copy; 2024 Manvi. Todos os direitos reservados.</p>
+    </footer>
+
+    
+    <canvas id="particles"></canvas>
+    <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,514 @@
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background: radial-gradient(ellipse at bottom, #d4e9ff 0%, #e3edfff2 100%);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+:root {
+    --dark-bg: #0a0a0a;
+    --darker-bg: #050505;
+    --accent: #2e53cc;
+    --accent-glow: rgba(107, 46, 204, 0.5);
+    --text: #ffffff;
+}
+
+
+ 
+      body {
+      margin: 0;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+
+      /* Fundo animado */
+      background: linear-gradient(270deg, #f3f6ffb3, #d7e2ff, #c9e0ff, #f4f7ff);
+      background-size: 400% 400%;
+      animation: gradientAnimation 10s ease infinite;
+    }
+
+    /* Animação do gradiente */
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+
+
+
+/* Resetando margens e padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  /* Evita rolagem horizontal indesejada */
+  overflow-x: hidden; /* Bloqueia a rolagem lateral */
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+ /* --- ESTILO FUTURISTA DA ROLAGEM --- */
+::-webkit-scrollbar {
+  width: 10px; /* largura da barra lateral */
+  height: 10px; /* altura da barra inferior*/
+}
+
+/* Fundo da barra (trilho) */
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+}
+
+/* Parte que se move (thumb) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #5a73ff, #273f8a);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease;
+}
+
+/* Efeito ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8298ff, #3c54b2);
+}
+
+/* Cantos entre barras */
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+
+/* --- SCROLLBAR FUTURISTA COM BRILHINHOS --- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Trilha translúcida */
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+}
+
+/* Thumb com brilho animado */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #5a73ff, #273f8a);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(90, 115, 255, 0.6), 0 0 20px rgba(39, 63, 138, 0.3);
+  animation: sparkleMove 4s linear infinite;
+  background-size: 200% 200%;
+}
+
+/* Brilho ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8caaff, #3c54b2);
+  box-shadow: 0 0 12px rgba(120, 145, 255, 0.9), 0 0 25px rgba(80, 105, 255, 0.6);
+}
+
+/* Animação do gradiente simulando brilhinhos descendo */
+@keyframes sparkleMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00eaff, #0066ff);
+  border-radius: 10px;
+  box-shadow: 0 0 10px #00eaff, 0 0 20px #0066ff;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 20, 0.5);
+  backdrop-filter: blur(3px);
+}
+
+
+
+/* Navigation */
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1.5rem 5%;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    background: #0b031c;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+    position: relative;
+    padding-left: 2.5rem;
+
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+
+}
+
+.nav-links a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+
+}
+
+
+
+
+
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  align-items: center;
+  padding: 12% 5%;
+}
+
+  .hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 30%, var(--accent-glow) 0%, transparent 30%);
+  z-index: 1; /* o gradiente fica acima da imagem */
+  pointer-events: none; /* evita bloquear cliques */
+}
+
+.hero-bg { 
+  position: absolute;
+  top: 40px;
+  margin-bottom: 20px;
+  left: 0;
+  z-index: -1; /* Fica por baixo */
+  margin-left: 140px;
+  max-width: 1200px;
+  max-height: 1200px;
+}
+
+
+.phrase {
+ 
+  position: relative;
+  display: inline-block;
+  margin-top: 40px;
+}
+
+/* Camada de blur atrás do texto */
+.phrase::before {
+  content: "";
+  position: absolute;
+  inset: -20px; /* um pouco maior que o texto */
+  backdrop-filter: blur(10px); /* aplica o desfoque atrás */
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 0; /* atrás do texto */
+  border-radius: 20px;
+  opacity: 0.6; /* controla a intensidade do efeito */
+}
+
+/* Texto principal */
+.phrase h1 {
+  position: relative;
+  z-index: 1; /* fica acima do blur */
+  font-size: 40px;
+  margin-bottom: 1.5rem;
+  margin-left: 200px;
+  margin-right: 200px;
+
+  /* Gradiente metálico */
+  background: linear-gradient(45deg, #5f43ff 30%, #ffffff 70%);
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent;
+
+  
+  /* Animações */
+  display: inline-block;
+  animation: float 5s ease-in-out infinite;
+  transition: transform 0.4s ease, letter-spacing 0.4s ease;
+}
+
+.phrase h1:hover {
+  transform: translateY(-10px) scale(1.05);
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+
+
+.phrase h2 {
+    font-size: 50px;
+    background: linear-gradient(45deg, #bcb5cc 30%, #ffffff 70%);
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+    font-family: italic;
+    margin-left: 500px;
+    
+}
+
+
+
+
+
+ .wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+ }
+
+
+ .container {
+   height: 400px;
+   display: flex;
+   flex-wrap: nowrap;
+   justify-content: start;
+ }
+
+ .card {
+    width: 80px;
+    border-radius: .75rem;
+    background-size: cover;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 2rem;
+    margin: 0 10px;
+    display: flex;
+    align-items: flex-end;
+    transition: .6s cubic-bezier(.20, -0.03, 0, 0.8);
+    box-shadow: 0px 10px 30px -5px rgb(165, 149, 255);
+
+ }
+
+ .card > .row {
+    color: #000000;
+    display: flex;
+    flex-wrap: nowrap;
+
+ }
+
+
+ .card > .row > .icon {
+    background: #223;
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px; 
+
+
+ }
+
+
+ .card > .row > .description {
+   display: flex; 
+   justify-content: center; 
+   flex-direction: column;
+   overflow: hidden;
+   height: 80px;
+   width: 520px;
+   opacity: 0;
+   transform: translateY(30px);
+   transition-delay: .3s;
+   transition: all .3s ease;
+ }
+
+
+ .description p {
+   color: #000000;
+   padding-top: 5px;
+
+ }
+
+
+ .description h4 {
+    text-transform: uppercase;
+
+ }
+
+
+ input {
+    display: none;
+
+ }
+
+ input:checked + label {
+    width: 600px;
+ }
+
+
+ input:checked + label .description {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+ }
+
+
+
+
+
+ .card[for="c1"]{
+    background-image: url(Assets/1.png);
+ }
+
+ .card[for="c2"]{
+    background-image: url(Assets/2.png);
+ }
+
+ .card[for="c3"]{
+    background-image: url(Assets/3.png);
+ }
+
+ .card[for="c4"]{
+    background-image: url(Assets/4.png);
+ }
+
+ .card[for="c5"]{
+    background-image: url(Assets/5.png);
+ }
+
+ .card[for="c6"]{
+    background-image: url(Assets/6.png);
+ }
+
+
+
+
+
+ 
+/* Footer */
+
+
+
+ 
+
+ footer {
+   background: #0b031c;
+   padding: 3rem 5%;
+   text-align: center;
+   border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+ }
+
+ .social-link-general {
+     display: flex;
+     gap: 2rem;
+ }
+
+ .social-link-general a {
+    color: var(--text);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+ }
+
+ .social-link-general a:hover{
+   color: var(--accent);
+   transform: translateY(-3px);
+
+}
+
+ footer p {
+  color: white;
+}
+
+
+ .serious {
+    display: flex;
+    margin-left: 510px;
+ }
+
+ .serious a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+ }
+
+ .serious a:hover {
+    transform: translateY(4px);
+ }
+
+
+
