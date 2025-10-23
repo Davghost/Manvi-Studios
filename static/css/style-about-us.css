@@ -1,0 +1,554 @@
+*{margin: 0;
+
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', sans-serif;
+}
+
+:root {
+    --dark-bg: #0a0a0a;
+    --darker-bg: #050505;
+    --accent: #2e53cc;
+    --accent-glow: rgba(107, 46, 204, 0.5);
+    --text: #ffffff;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+
+/* --- ESTILO FUTURISTA DA ROLAGEM --- */
+::-webkit-scrollbar {
+  width: 10px; /* largura da barra lateral */
+  height: 10px; /* altura da barra inferior, se aparecer */
+}
+
+/* Fundo da barra (trilho) */
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+}
+
+/* Parte que se move (thumb) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #5a73ff, #273f8a);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease;
+}
+
+/* Efeito ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8298ff, #3c54b2);
+}
+
+/* Cantos entre barras */
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+
+/* --- SCROLLBAR FUTURISTA COM BRILHINHOS --- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Trilha translúcida */
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+}
+
+/* Thumb com brilho animado */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #5a73ff, #273f8a);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(90, 115, 255, 0.6), 0 0 20px rgba(39, 63, 138, 0.3);
+  animation: sparkleMove 4s linear infinite;
+  background-size: 200% 200%;
+}
+
+/* Brilho ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8caaff, #3c54b2);
+  box-shadow: 0 0 12px rgba(120, 145, 255, 0.9), 0 0 25px rgba(80, 105, 255, 0.6);
+}
+
+/* Animação do gradiente simulando brilhinhos descendo */
+@keyframes sparkleMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00eaff, #0066ff);
+  border-radius: 10px;
+  box-shadow: 0 0 10px #00eaff, 0 0 20px #0066ff;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 20, 0.5);
+  backdrop-filter: blur(3px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Navigation */
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1.5rem 5%;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+    position: relative;
+    padding-left: 2.5rem;
+
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+
+}
+
+.nav-links a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Hero Section */
+
+.hero {
+    min-height: 100vh;
+    align-items: center;
+    padding: 12% 5%;
+    background: radial-gradient(circle at 30% 20%, var(--accent-glow) 0%, transparent 30%);
+
+}
+
+.hero-image {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    
+}
+
+
+
+.profile-img {
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 50px var(--accent-glow);
+    animation: float 3s ease-in-out infinite;
+    filter: grayscale(0.2) contract(1.1);
+    margin-right: 150px;
+    margin-top: 100px;
+}
+
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Names below images - hero */
+
+.hero-names {
+    
+    display: flex;
+    gap: 200px;
+    
+}
+
+.name1 {
+    
+    color: rgb(216, 216, 216);
+    font-size: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    margin-left: 220px;
+    margin-top: 20px;
+    letter-spacing: 2px;
+    
+}
+
+.name2 {
+    
+    color: rgb(209, 209, 209);
+    font-size: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    margin-left: 180px;
+    margin-top: 20px;
+    letter-spacing: 2px;
+    
+   
+}
+
+.our-contact {
+    display: flex;
+}
+
+
+.social-links-ay {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 20px;
+    margin-top:  -150px;
+    margin-left: 295px;
+
+ }
+
+
+ .social-links-ay a {
+    color: var(--text);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+ }
+
+ .social-links-ay a:hover{
+   color: var(--accent);
+   transform: translateY(-3px);
+
+}
+
+
+
+
+
+/* Rede Social - Davi */
+
+.social-links-dl {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 20px;
+    margin-top:  -150px;
+    margin-left: 390px;
+
+ }
+
+
+ .social-links-dl a {
+    color: var(--text);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+ }
+
+ .social-links-dl a:hover{
+   color: var(--accent);
+   transform: translateY(-3px);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(45deg, var(--accent) 30%, #ffffff 70%);
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+}
+
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+    max-width: 600px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Skills Section - Amanda */
+
+.skills {
+  padding: 5rem 5%;
+  background: var(--darker-bg);
+
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+
+}
+
+.skill-card {
+   padding: 2rem;
+   border-radius: 15px;
+   background: rgba(13, 2, 58, 0.125);
+   transition: all 0.3 ease;
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   backdrop-filter: blur(5px);
+}
+
+.skill-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px var(--accent-glow);
+}
+
+.skill-card i {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+
+}
+
+
+/* Skills Section - Davi*/
+
+.skills2 {
+  padding: 5rem 5%;
+  background: var(--darker-bg);
+
+}
+
+.skills-grid2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+
+}
+
+.skill-card2 {
+   padding: 2rem;
+   border-radius: 15px;
+   background: rgba(13, 2, 58, 0.125);
+   transition: all 0.3 ease;
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   backdrop-filter: blur(5px);
+}
+
+.skill-card2:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px var(--accent-glow);
+}
+
+.skill-card2 i {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Footer */
+
+ footer {
+   background: var(--darker-bg);
+   padding: 3rem 5%;
+   text-align: center;
+   border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+ }
+
+ .social-link-general {
+     display: flex;
+     gap: 2rem;
+ }
+
+ .social-link-general a {
+    color: var(--text);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+ }
+
+ .social-link-general a:hover{
+   color: var(--accent);
+   transform: translateY(-3px);
+
+}
+
+
+ .serious {
+    display: flex;
+    margin-left: 510px;
+ }
+
+ .serious a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+ }
+
+ .serious a:hover {
+    transform: translateY(4px);
+ }
+
+
+@media (max-width: 768px) {
+    .hero{
+        flex-direction: column;
+        text-align: center;
+        padding-top: 8rem;
+    }
+
+
+
+ .hero-content {
+    padding-right: 0;
+    margin-bottom: 3rem;
+}
+
+
+ .profile-img {
+    width: 200px;
+    height: 200px; 
+ }
+
+
+ .nav-links {
+    display: none;
+ }
+
+ .logo {
+    font-size: 1.5rem;
+    padding-left: 2rem;
+
+ }
+
+
+}

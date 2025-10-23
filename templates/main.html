@@ -8,8 +8,11 @@
 
   <meta charset="UTF-8">
   <title>Início - MS</title>
-  <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
-  <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='images/All Posts')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+  <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='images/logo.png')}}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
   <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Zen+Dots&display=swap" rel="stylesheet">
@@ -25,24 +28,53 @@
 <body>
 
   <header>
-
-    <h1 id="page-title">Manvi Studios</h1>
-    <nav>
-      <ul>
-        <li><a href="{{url_for('exam', exam_id=1)}}">Estude aqui</a></li>
-      </ul>
-    </nav>
-
+    
+     <nav class="navbar">
+         <div class="logo">Manvi</div>
+            <ul class="menu">
+            <li><a href="{{ url_for('main') }}">Início</a></li>
+            <li><a href="{{ url_for('connections') }}">Conexões</a></li>
+            <li><a href="{{ url_for('about-us') }}">Sobre Nós</a></li>
+            <li><a href="{{ url_for('oftenquestions') }}">FAQs</a></li>
+            </ul>
+     </nav>
+     
   </header>
   
+
+
+
   <main> 
 
-      <!-- Definição -->
+      
+    <section class="hero">
+
+    <img src="{{url_for('static', filename='images/Cabecalho.png')}}" alt="Banner" class="hero-bg">
+  
+    <div class="hero-content">
+    <h1>Descubra seu potencial com o Manvi</h1>
+    <p>Uma plataforma inteligente que analisa seu desempenho e conecta você a oportunidades.</p>
+    <div class="hero-buttons">
+      <a href="" class="btn-primary">Começar agora gratuitamente</a>
+      <a href="{{url_for('exam', exam_id=1)}}" class="btn-secondary">Estude Aqui</a>
+    </div>
+    </div>
+
+  </section>
+
+
+
+
+
+
+
+
+   <!-- Definição -->
 
   <section id="introduction">
 
-    
-  <h1>O que é o Manvi Studios?</h1>
+
+  <h1 class="title">O que é o Manvi Studios?</h1>
 
   <p>
     O Manvi Studios criou-se para transformar a experiência educacional
@@ -50,6 +82,8 @@
     no contato direto com empresas, startups, e organizações
     que buscam grandes talentos para fazer parte de seu ambiente.
   </p>
+
+
 
   </section>
   
@@ -74,57 +108,70 @@
       <ul>
         <li>Conexão com uma rede de talentos emergentes;</li>
         <li>Acesso a uma plataforma de aprendizado inovadora que possa evoluir o ensino de seus alunos;</li>
-        <li>Contato com empresas e startups em busca de talentos que podem evoluir o nível de prestígio da unidade de ensino.</li>
+        <li>Oportunidade de colaborar com empresas e startups;</li>
       </ul>
     </section>
-  </div>
         
-
-  <section id="empresarial">
-  <h2><div>Benefícios para empresas e startups:</div></h2>
+   <!-- Benefícios para empresas e startups -->
+   <section id="empresarial-benefits">
+   <h1>Benefícios para empresas e startups:</h1>
       <ul>
          <li>Acesso a uma nova geração de talentos;</li>
-         <li>Possibilidade de realizar parcerias e colaborações;</li>
-         <li>Contribuição para a formação de profissionais mais preparados;</li>
+         <li>Parcerias e colaborações;</li>
+         <li>Formação de profissionais preparados;</li>
          <li>Oportunidade de promover sua marca entre estudantes e instituições educacionais;</li>
          <li>Ampliação do mercado de trabalho com a seleção individual de funcionários potencialmente qualificados.</li>
       </ul>
   </section>
 
 
-  <section id="conclusion">
-  <h2><div>Nosso compromisso:</div></h2>  
-      <p>O Manvi Studios está comprometido em criar um ambiente onde estudantes, escolas, empresas e startups possam se conectar, colaborar e crescer juntos. Acreditamos que, ao unir esses diferentes atores, podemos transformar a educação e o mercado de trabalho, criando oportunidades significativas para todos os envolvidos.</p>
-  </section>
+  </div>
 
-
-  <section id="motivation">
-  <h1><div>Grandes futuros e empresas começam aqui</div></h1>
-  </section>
-
-
-
-  <section id="call-to-action">
-  <h2><div>Junte-se a nós nessa jornada de transformação educacional e profissional!</div></h2>
-  </section>
-      
 
   </main>
 
 
 
 
-    
+
+
+
+
+
+
+
+  <section id="conclusion">
+  <h2>Nosso compromisso:</h2>  
+      <p>O Manvi Studios está comprometido em criar um ambiente onde estudantes, escolas, empresas e startups possam se conectar, colaborar e crescer juntos.     Acreditamos que, ao unir esses diferentes atores, podemos transformar a educação e o mercado de trabalho, criando oportunidades significativas para todos os envolvidos.</p>
+  </section>
+
+
+  <section id="motivation">
+  <img src="{{url_for('static', filename='images/homephrase.png')}}" alt="Grandes talentos começam aqui - Amanda Yuna" id="motivation-image">
+  </section>
+
+  <section id="banner">
+  <video autoplay muted loop id="banner-video">
+    <source src="{{url_for('static', filename='images/banner.mp4')}}" type="video/mp4">
+    Seu navegador não suporta vídeo.
+  </video>
+  </section>
+   
+
+  <section id="vision"> 
+  <h2>Nossa visão e missão</h2>  
+      <p>Ser a plataforma líder em conectar estudantes, escolas, empresas e startups, promovendo um ecossistema vibrante de aprendizado, inovação e oportunidades profissionais.</p>
+  </section>
+
+
+  <section id="call-to-action">
+  <h2>Junte-se a nós nessa jornada de transformação educacional e profissional!</h2>
+  </section>
+      
+
+
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   
   <footer>
         
@@ -137,7 +184,6 @@
         <div class="social-media">
                     <h3 id="call-us">Redes Sociais</h3>
                     <div class="social-icons">
-                        <a href="#"><i class="fab fa-youtube"></i></a>
                         <a href="https://www.instagram.com/manvistudiosms"><i class="fab fa-instagram"></i></a>
                         <a href="https://www.linkedin.com/in/manvi-studios-23b13b388/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                     </div>
@@ -148,9 +194,40 @@
         </section>
 
 
+  </footer>
+     
 
-      </footer>
+
+   <canvas id="particles"></canvas>
+   <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
 
 
+
+     <script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const section = document.querySelector('#introduction');
+
+  section.addEventListener('mouseenter', () => {
+    for (let i = 0; i < 40; i++) { // quantidade de estrelas
+      const star = document.createElement('span');
+      star.classList.add('star');
+
+      // posição e velocidade aleatória
+      star.style.left = Math.random() * section.offsetWidth + 'px';
+      star.style.animationDuration = (1 + Math.random() * 2) + 's';
+
+      section.appendChild(star);
+
+      // remover estrela ao final da animação
+      star.addEventListener('animationend', () => star.remove());
+    }
+   });
+   });
+  </script>
+
+
+  
     </body>
 </html> 
+
+  

@@ -1,0 +1,839 @@
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background: radial-gradient(ellipse at bottom, #d4e9ff 0%, #e3edfff2 100%);
+}
+
+
+
+/* Resetando margens e padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  /* Evita rolagem horizontal indesejada */
+  overflow-x: hidden; /* Bloqueia a rolagem lateral */
+  max-width: 100%;
+}
+
+
+
+
+/* --- ESTILO FUTURISTA DA ROLAGEM --- */
+::-webkit-scrollbar {
+  width: 10px; /* largura da barra lateral */
+  height: 10px; /* altura da barra inferior, se aparecer */
+}
+
+/* Fundo da barra (trilho) */
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+}
+
+/* Parte que se move (thumb) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #5a73ff, #273f8a);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease;
+}
+
+/* Efeito ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8298ff, #3c54b2);
+}
+
+/* Cantos entre barras */
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+
+/* --- SCROLLBAR FUTURISTA COM BRILHINHOS --- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Trilha translúcida */
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+}
+
+/* Thumb com brilho animado */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #5a73ff, #273f8a);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(90, 115, 255, 0.6), 0 0 20px rgba(39, 63, 138, 0.3);
+  animation: sparkleMove 4s linear infinite;
+  background-size: 200% 200%;
+}
+
+/* Brilho ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8caaff, #3c54b2);
+  box-shadow: 0 0 12px rgba(120, 145, 255, 0.9), 0 0 25px rgba(80, 105, 255, 0.6);
+}
+
+/* Animação do gradiente simulando brilhinhos descendo */
+@keyframes sparkleMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00eaff, #0066ff);
+  border-radius: 10px;
+  box-shadow: 0 0 10px #00eaff, 0 0 20px #0066ff;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 20, 0.5);
+  backdrop-filter: blur(3px);
+}
+
+
+
+
+
+
+
+
+ 
+ 
+      body {
+      margin: 0;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+
+      /* Fundo animado */
+      background: linear-gradient(270deg, #f3f6ffb3, #d7e2ff, #c9e0ff, #f4f7ff);
+      background-size: 400% 400%;
+      animation: gradientAnimation 10s ease infinite;
+    }
+
+    /* Animação do gradiente */
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    /* --- NAVBAR FIXA --- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: rgba(10, 10, 35, 0.65);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar .logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 32px;
+  color: #ffffff;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #7f9aff;
+}
+
+.navbar .menu {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar .menu li a {
+  text-decoration: none;
+  color: #e9ebff;
+  font-family: 'Sansation', sans-serif;
+  font-size: 18px;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.navbar .menu li a:hover {
+  color: #8daaff;
+  text-shadow: 0 0 10px #93b7ff;
+}
+
+/* --- HERO (BANNER PRINCIPAL) --- */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* ocupa toda a altura da tela */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding-top: 80px; /* compensa a altura da navbar fixa */
+}
+
+.hero-bg {
+  /* Deixa a imagem de fundo sem ficar transparente e com alta resolução */
+  background: url('Assets/Cabeçalho.png') no-repeat center center;
+  background-size: cover; /* cobre todo o espaço */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+
+/* --- HERO CONTENT --- */
+.hero-content {
+  max-width: 900px;
+  padding: 0 20px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.hero-content h1 {
+  font-size: 60px;
+  font-family: 'Sansation', sans-serif;
+  text-shadow: 0 0 20px rgba(120, 150, 255, 0.6);
+  
+}
+
+.hero-content p {
+  font-size: 22px;
+  font-family: 'Sansation', sans-serif;
+  line-height: 1.6;
+  color: #dfe8ff;
+}
+
+/* --- BOTÕES DO BANNER --- */
+.hero-buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 25px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 14px 35px;
+  border-radius: 40px;
+  font-family: 'Sansation', sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #1e00ff, #0088ff);
+  color: white;
+  box-shadow: 0 0 20px rgba(0, 110, 255, 0.4);
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 81, 255, 0.7);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid #00eaff;
+  color: #00eaff;
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 234, 255, 0.15);
+  transform: scale(1.05);
+}
+
+/* --- ANIMAÇÃO DE ENTRADA --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   AJUSTES DO HEADER + HERO
+   ========================= */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(15, 20, 45, 0.6);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+  height: 80px;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-family: 'Sansation', sans-serif;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.menu a:hover {
+  color: #00e5ff;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Usar center p/ centralizar horizontalmente */
+  padding: 0 8vw; /* margem fluida nas laterais */
+  overflow: hidden; 
+  color: white;
+}
+
+.hero-bg {
+  position: absolute; /* cobre todo o banner */
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* cobre todo o banner sem distorcer */
+  z-index: -1; /* imagem atrás do conteúdo */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  text-align: left; /* centralizado: text-align: center */
+}
+
+
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 12px 26px;
+  border-radius: 40px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #005eff, #1d9aff);
+  color: white;
+}
+
+.btn-secondary {
+  border: 2px solid #00e5ff;
+  color: #00e5ff;
+  background: transparent;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+  transform: scale(1.05);
+}
+/* =========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* INTRODUÇÃO - TÍTULO E TEXTO DO QUE É A MS */
+
+   .title {
+     font-size: 80px;
+     background: radial-gradient(circle at center, #ffffff, #aeb9ea, #ffffff);
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+     display: inline-block;
+     text-align: center;
+     margin-left: 325px;
+     margin-right: 390px;
+     filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.7)); /* Sombra ao redor do texto */
+  }
+
+    section#introduction {
+      background-color: #13163f; /* Azul escuro */
+      background: linear-gradient(to right, #f0edff, #272e6a, #1f2759, #1b2260, #e8eaff);
+      padding: 20px; /* Espaçamento interno */
+      border-radius: 10px; /* Bordas arredondadas (opcional) */
+      margin: 20px 50px; /* Espaçamento externo */
+      box-shadow: #454762 0px 4px 10px; /* Sombra ao redor do bloco */
+      filter: drop-shadow(0px 0px 10px #fff8f8); /* Sombra ao redor do bloco */
+    }
+
+    section#introduction h1 {
+     color: rgb(255, 255, 255);
+     font-size: 50px;
+     margin-left: 50px;
+     margin-right: 50px;
+    }
+
+    section#introduction p {
+     color: rgb(255, 255, 255);
+     font-size: 30px;
+     margin-left: 200px;
+     margin-right: 200px;
+
+    }
+
+
+
+   
+   
+   
+   
+   
+   
+   
+    /* --- BLOCO "O QUE É O MANVI STUDIOS" COM EFEITO INTERATIVO --- */
+section#introduction {
+  position: relative;
+  background: linear-gradient(to right, #f0edff, #272e6a, #1f2759, #1b2260, #e8eaff);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 50px;
+  margin-top: 200px;
+  box-shadow: #454762 0px 4px 10px;
+  filter: drop-shadow(0px 0px 10px #fff8f8);
+  overflow: hidden; /* importante p/ conter as estrelas */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* --- AUMENTA AO PASSAR O MOUSE --- */
+section#introduction:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3),
+              0 0 80px rgba(80, 110, 255, 0.5);
+}
+
+/* --- ESTRELAS QUE APARECEM --- */
+.star {
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #b8c4ff 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 6px #9bf);
+  animation: fallStars linear forwards;
+  pointer-events: none;
+}
+
+/* --- ANIMAÇÃO DAS ESTRELAS --- */
+@keyframes fallStars {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(250px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+
+#introduction {
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+#introduction:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px #00eaff, 0 0 80px #0077ff inset;
+}
+
+
+
+    /* --- BENEFITS CONTAINER --- */
+.benefits-container {
+  display: flex;
+  justify-content: center; /* Centraliza os três blocos no meio */
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 60px auto;
+  max-width: 1600px;
+}
+
+/* --- BLOCO INDIVIDUAL --- */
+#student-benefits, 
+#organization-benefits, 
+#empresarial-benefits {
+  flex: 1;
+  min-width: 350px; /* Garante que não fiquem estreitos demais */
+  max-width: 500px;
+  padding: 40px 30px;
+  border-radius: 15px;
+  color: white;
+  font-family: 'Sansation', sans-serif;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center; /* Centraliza os títulos e textos */
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- EFEITO HOVER FUTURISTA --- */
+#student-benefits:hover,
+#organization-benefits:hover,
+#empresarial-benefits:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 10px 25px rgba(255, 255, 255, 0.3);
+}
+
+/* --- TÍTULOS ALINHADOS E UNIFORMES --- */
+#student-benefits h1, 
+#organization-benefits h1, 
+#empresarial-benefits h1 {
+  font-size: 32px;
+  margin: 0 0 25px 0;
+  color: #fff;
+  text-align: center;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  letter-spacing: 1px;
+  font-family: 'Michroma', sans-serif;
+}
+
+/* --- LISTAS MAIS LARGAS E FLUIDAS --- */
+#student-benefits ul, 
+#organization-benefits ul, 
+#empresarial-benefits ul {
+  list-style-type: disc;
+  padding-left: 40px;
+  margin: 0 auto;
+  width: 80%; /* Mais largo e proporcional */
+  font-size: 20px;
+  line-height: 1.8;
+  text-align: left;
+  color: rgb(240, 240, 255);
+  font-family: 'Sansation', sans-serif;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* --- FUNDOS PERSONALIZADOS --- */
+#student-benefits {
+  background-image: url('Assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+#organization-benefits {
+  background-image: url('Assets/backorganization.png');
+  background-size: cover;
+  background-position: center;
+}
+
+#empresarial-benefits {
+  background-image: url('Assets/backempresarial.png');
+  background-size: cover;
+  background-position: center;
+}
+
+
+
+/* --- BENEFITS CONTAINER RESPONSIVO --- */
+.benefits-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap; /* Faz os blocos quebrarem linha se faltar espaço */
+  gap: 30px;
+  margin: 60px auto;
+  padding: 0 5vw; /* Dá uma margem fluida nas laterais */
+  max-width: 1600px; /* Impede que o conteúdo ultrapasse a tela grande */
+  box-sizing: border-box;
+}
+
+/* --- BLOCOS AJUSTÁVEIS --- */
+#student-benefits, 
+#organization-benefits, 
+#empresarial-benefits {
+  flex: 1 1 350px; /* Permite que encolham ou cresçam de acordo com o espaço */
+  max-width: 500px;
+  min-width: 320px;
+  box-sizing: border-box;
+}
+
+
+
+
+.glow-frame {
+  border: 2px solid rgba(140, 160, 255, 0.6);
+  box-shadow: 0 0 20px rgba(130, 160, 255, 0.5);
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(160, 180, 255, 0.5); }
+  50% { box-shadow: 0 0 30px rgba(120, 160, 255, 0.9); }
+}
+
+
+
+
+
+
+
+
+
+  #conclusion {
+  background:  rgba(0, 47, 141, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 200, 255, 0.3);
+  border-radius: 20px;
+  padding: 50px;
+  margin: 80px auto;
+  max-width: 1300px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(0, 200, 255, 0.2);
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+
+  #conclusion:hover {
+  box-shadow: 0 0 60px rgba(0, 110, 255, 0.6),
+              inset 0 0 40px rgba(0, 100, 255, 0.3);
+  transform: scale(1.02);
+}
+  
+
+  #conclusion h2 {
+   font-family: 'Orbitron', sans-serif;
+  color: #dee4ff;
+  font-size: 2.5em;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px #738bff;
+  margin-bottom: 20px;
+  }
+
+  #conclusion h2::after {
+  content: "";
+  display: block;
+  margin: 15px auto 0;
+  width: 400px; /* Largura da linha */
+  height: 3px;
+  background: linear-gradient(90deg, #6600ff, #2a00d1);
+  border-radius: 5px;
+  animation: pulseLine 2s infinite alternate;
+}
+
+@keyframes pulseLine {
+  from { box-shadow: 0 0 10px #00eaff; }
+  to { box-shadow: 0 0 25px #0066ff; }
+}
+
+
+  #conclusion p {
+  font-family: 'Sansation', sans-serif;
+  color: #def1fb;
+  font-size: 20px;
+  line-height: 1.8;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin: 0 auto;
+}
+
+  
+
+
+
+ #motivation img#motivation-image {
+  width: 100%; 
+  max-width: 1400px; /* impede que fique gigante em telas grandes */
+  height: auto;
+  border-radius: 20px; 
+  object-fit: cover;
+  display: block;
+  margin: 0 auto; /* centraliza */
+  box-shadow: 0 0 40px rgba(0, 9, 109, 0.2); /* toque futurista */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+#motivation img#motivation-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 60px rgba(96, 141, 255, 0.4);
+}
+
+
+#banner {
+  width: 90%;       /* deixa um pouco de margem nas laterais */
+  max-width: 2000px; /* limita largura máxima */
+  height: auto;     /* mantém proporção */
+  margin: 40px auto;
+  overflow: hidden;
+  display: block;
+  border-radius: 15px;
+  box-shadow: 0 0 40px rgba(7, 2, 49, 0.3);
+  margin-top: 100px;
+  margin-bottom: 50px;
+  image-rendering: auto;
+  image-resolution: from-image; /* melhora qualidade em telas de alta resolução */
+  object-fit: cover; /* cobre todo o espaço sem distorcer */  
+
+
+}
+
+
+
+#banner-video {
+  width: 100%;
+  height: auto;     
+  display: block;
+  border-radius: 15px;
+  image-resolution: from-image; /* melhora qualidade em telas de alta resolução */
+  object-fit: cover; /* cobre todo o espaço sem distorcer */
+
+}
+
+#vision h2 {
+  font-size: 40px;   
+  color: rgb(0, 0, 0);
+  font-family: 'Orbitron', sans-serif;
+  margin-top: 100px;   
+  margin-bottom: 60px;
+  text-shadow: 0 0 10px #c5cfff;  
+  letter-spacing: 1px;
+  margin-left: 200px; 
+  margin-right: 200px;
+  background-color: radial-gradient(ellipse at center, #ffffff, #aeb9ea, #ffffff);
+  
+}
+
+#vision p {
+  font-size: 40px;
+  color: rgb(0, 0, 0);
+  font-family: 'Sansation', sans-serif;
+  margin-left: 200px;
+  margin-right: 200px;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+
+
+
+
+   /* Footer */
+
+    footer {
+        background-color: #13163f; /* Azul escuro */
+        height: 50%;
+        width: 50%;
+        color: rgb(255, 255, 255);
+        padding: 10px 0;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+        
+
+      section#contact-info p{
+        color: white;
+        font-size: 100px;
+        margin-right: 1200px;
+        font-family: 'Michroma', sans-serif;
+      }
+
+      section#contact-info a{
+        color: white;
+        text-decoration: none;
+        font-size: 20px;
+        margin-right: 1200px;
+        animation: fadeIn 0.5s ease-in-out;
+        font-family: 'Michroma', sans-serif;
+      }
+
+
+      
