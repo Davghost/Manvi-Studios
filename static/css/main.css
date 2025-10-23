@@ -1,6 +1,4 @@
 
-
-
 /* Resetando margens e padding */
 html, body {
   margin: 0;
@@ -8,8 +6,6 @@ html, body {
   box-sizing: border-box;
 }
     
- 
- 
       body {
       margin: 0;
       height: 100vh;
@@ -119,7 +115,7 @@ html, body {
 
 /* Fundo para os benefícios dos estudantes */
 #student-benefits {
-  background-image: url('Assets/background.jpeg'); /* Substitua pelo caminho da imagem */
+  background-image: url('../images/background.jpeg'); /* Substitua pelo caminho da imagem */
   background-size: cover; /* Faz a imagem cobrir todo o espaço */
   background-position: center; /* Centraliza a imagem */
   background-repeat: no-repeat; /* Evita repetição da imagem */
@@ -127,7 +123,7 @@ html, body {
 
 /* Fundo para os benefícios das organizações */
 #organization-benefits {
-  background-image: url('Assets/background.jpeg'); /* Substitua pelo caminho da imagem */
+  background-image: url('../images/background.jpeg'); /* Substitua pelo caminho da imagem */
   background-size: cover; /* Faz a imagem cobrir todo o espaço */
   background-position: center; /* Centraliza a imagem */
   background-repeat: no-repeat; /* Evita repetição da imagem */
@@ -148,10 +144,6 @@ html, body {
      
 }
 
-
-
-
-
 section#empresarial h2 {
   color: rgb(240, 239, 255);
   font-size: 50px;
@@ -171,9 +163,6 @@ section#empresarial ul {
   margin-bottom: 50px;
   
 }
-
-    
-
    /* Footer */
 
     footer {
