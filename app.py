@@ -1,24 +1,44 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from dotenv import load_dotenv
+
+#from flask_httpauth import HTTPBasicAuth
+from functools import wraps
+from werkzeug.security import generate_password_hash, check_password_hash
 import os
-import sqlite3
+from db import get_connect
+from auth import auth_blueprint
+
+load_dotenv()
 
 app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY")
+app.register_blueprint(auth_blueprint, url_prefix="/auth")
 
-def get_connect():
-    con = sqlite3.connect("questions_bank.db")
-    con.row_factory = sqlite3.Row
-    return con
 
-@app.route("/")
-def authentic():
-    return render_template("authentic.html")
+def login_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if "user_id" not in session:
+            return redirect(url_for("auth.auth"))
+        return f(*args, **kwargs)
+    return decorated
 
-@app.route("/main-page")
+@app.route('/')
+@login_required
 def main():
-    return render_template("main.html")
+    username = session.get("username")
+    return render_template("main.html", username=username)
+
+@app.route("/about_us")
+def about_us():
+    return render_template("about_us.html")
+
+@app.route("/oftenquestions")
+def oftenquestions():
+    return render_template("oftenquestions.html")
 
 @app.route("/exam/<int:exam_id>")
+@login_required
 def exam(exam_id):
     con = get_connect()
     cur = con.cursor()
@@ -29,6 +49,7 @@ def exam(exam_id):
     return render_template("exam.html", exam=exam, questions=questions)
 
 @app.route("/submit_result", methods=["POST"])
+@login_required
 def submit_result():
     data = request.form
     respostas = {}

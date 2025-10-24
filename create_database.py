@@ -37,6 +37,17 @@ CREATE TABLE IF NOT EXISTS user_result(
    );
 """)
 
+cur.execute("""
+CREATE TABLE users(
+   id INTEGER PRIMARY KEY,
+   username TEXT NOT NULL UNIQUE,
+   email TEXT NOT NULL UNIQUE,
+   password_hash TEXT NOT NULL,
+   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+   last_login DATETIME
+   );
+""")
+
 con.commit()
 cur.close()
 con.close()

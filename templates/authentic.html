@@ -37,14 +37,16 @@
             <button type="submit">Cadastrar</button>
         </form>
 
-        <form id="login-aluno" class="form-section" style="display:none;">
+        <form method="POST" action="{{url_for('auth.auth')}}" id="login-aluno" class="form-section" style="display:none;">
+            <input type="hidden" name="form_type" value="login-aluno">
             <h2>Login Aluno</h2>
             <input type="text" name="username" placeholder="Usuário">
             <input type="password" name="password" placeholder="Senha">
             <button type="submit">Entrar</button>
         </form>
 
-        <form id="cadastro-aluno" class="form-section" style="display:none;">
+        <form method="POST" action="{{url_for('auth.auth')}}" id="cadastro-aluno" class="form-section" style="display:none;">
+            <input type="hidden" name="form_type" value="cadastro-aluno">
             <h2>Cadastro Aluno</h2>
             <input type="text" name="username" placeholder="Usuário">
             <input type="email" name="email" placeholder="Email">

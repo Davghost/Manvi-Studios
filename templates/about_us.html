@@ -20,10 +20,9 @@
     <nav class="navbar">
         <a href="Assets/logo.png" class="logo">Manvi</a>
         <ul class="nav-links">
-                <li><a href="main.html">Início</a></li> 
-                <li><a href="connections.html">Conexões</a></li>
-                <li><a href="about-us.html">Sobre Nós</a></li>
-                <li><a href="oftenquestions.html">FAQs</a></li>
+                <li><a href="{{url_for('main')}}">Início</a></li> 
+                <li><a href="{{url_for('about_us')}}">Sobre Nós</a></li>
+                <li><a href="{{url_for('oftenquestions')}}">FAQs</a></li>
         </ul>
     </nav>
 
