@@ -1,3 +1,4 @@
 .env
 venv/
 questions_bank.db
+__pycache__/
