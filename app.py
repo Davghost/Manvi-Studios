@@ -10,11 +10,16 @@ from auth import auth_blueprint
 
 load_dotenv()
 
+<<<<<<< HEAD
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 app.register_blueprint(auth_blueprint, url_prefix="/auth")
+=======
+app = Flask(__name__, static_folder='static', template_folder='templates')
+>>>>>>> a398d9179cc76debe03fd4e97f78209c62755e3c
 
 
+<<<<<<< HEAD
 def login_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -22,6 +27,16 @@ def login_required(f):
             return redirect(url_for("auth.auth"))
         return f(*args, **kwargs)
     return decorated
+=======
+# Rota inicial (entra pelo authentic, mas redireciona pro main)
+@app.route("/")
+def home():
+    return redirect(url_for("main"))
+
+@app.route("/authentic")
+def authentic():
+    return render_template("authentic.html")
+>>>>>>> a398d9179cc76debe03fd4e97f78209c62755e3c
 
 @app.route('/')
 @login_required
@@ -69,9 +84,12 @@ def submit_result():
     for resp in resp_right:
         resp_user = respostas.get(f"q{resp['id']}")
         if resp_user == resp["correct_option"]:
-            qntd_acertos +=1
+            qntd_acertos += 1
     
-    cur.execute("INSERT INTO user_result (exam_id, correct, total) VALUES (?,?,?)", (exam_id, qntd_acertos, len(resp_right)))
+    cur.execute(
+        "INSERT INTO user_result (exam_id, correct, total) VALUES (?, ?, ?)",
+        (exam_id, qntd_acertos, len(resp_right))
+    )
     con.commit()
     cur.close()
     con.close()

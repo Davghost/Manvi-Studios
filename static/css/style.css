@@ -221,7 +221,7 @@ html, body {
 
 .hero-bg {
   /* Deixa a imagem de fundo sem ficar transparente e com alta resolução */
-  background: url('Assets/Cabeçalho.png') no-repeat center center;
+  background: url("../images/Cabecalho.png") no-repeat center center;
   background-size: cover; /* cobre todo o espaço */
   position: absolute;
   top: 0;
@@ -428,6 +428,7 @@ html, body {
    .title {
      font-size: 80px;
      background: radial-gradient(circle at center, #ffffff, #aeb9ea, #ffffff);
+     background-clip: text;
      -webkit-background-clip: text;
      -webkit-text-fill-color: transparent;
      display: inline-block;
@@ -601,20 +602,22 @@ section#introduction:hover {
 }
 
 /* --- FUNDOS PERSONALIZADOS --- */
+
+
 #student-benefits {
-  background-image: url('Assets/background.jpg');
+  background-image: url("../images/background.jpg");
   background-size: cover;
   background-position: center;
 }
 
 #organization-benefits {
-  background-image: url('Assets/backorganization.png');
+  background-image: url("../images/backorganization.png");
   background-size: cover;
   background-position: center;
 }
 
 #empresarial-benefits {
-  background-image: url('Assets/backempresarial.png');
+  background-image: url("../images/backempresarial.png");
   background-size: cover;
   background-position: center;
 }

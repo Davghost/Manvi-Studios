@@ -289,6 +289,7 @@ html, body {
 
   /* Gradiente metálico */
   background: linear-gradient(45deg, #5f43ff 30%, #ffffff 70%);
+  background-clip: text;
   -webkit-background-clip: text; 
   -webkit-text-fill-color: transparent;
 
@@ -319,6 +320,7 @@ html, body {
 .phrase h2 {
     font-size: 50px;
     background: linear-gradient(45deg, #bcb5cc 30%, #ffffff 70%);
+    background-clip: text;
     -webkit-background-clip: text; 
     -webkit-text-fill-color: transparent;
     font-family: italic;
@@ -430,31 +432,29 @@ html, body {
 
 
 
- .card[for="c1"]{
-    background-image: url(Assets/1.png);
- }
+ .card[for="c1"] {
+  background-image: url("../images/1.png");
+}
 
- .card[for="c2"]{
-    background-image: url(Assets/2.png);
- }
+.card[for="c2"] {
+  background-image: url("../images/2.png");
+}
 
- .card[for="c3"]{
-    background-image: url(Assets/3.png);
- }
+.card[for="c3"] {
+  background-image: url("../images/3.png");
+}
 
- .card[for="c4"]{
-    background-image: url(Assets/4.png);
- }
+.card[for="c4"] {
+  background-image: url("../images/4.png");
+}
 
- .card[for="c5"]{
-    background-image: url(Assets/5.png);
- }
+.card[for="c5"] {
+  background-image: url("../images/5.png");
+}
 
- .card[for="c6"]{
-    background-image: url(Assets/6.png);
- }
-
-
+.card[for="c6"] {
+  background-image: url("../images/6.png");
+}
 
 
 

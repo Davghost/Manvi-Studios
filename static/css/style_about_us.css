@@ -21,18 +21,6 @@ body {
 }
 
 
-/* --- ESTILO FUTURISTA DA ROLAGEM --- */
-::-webkit-scrollbar {
-  width: 10px; /* largura da barra lateral */
-  height: 10px; /* altura da barra inferior, se aparecer */
-}
-
-/* Fundo da barra (trilho) */
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  backdrop-filter: blur(6px);
-}
 
 /* Parte que se move (thumb) */
 ::-webkit-scrollbar-thumb {
@@ -109,22 +97,6 @@ body {
   backdrop-filter: blur(3px);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Navigation */
 
 
@@ -185,22 +157,6 @@ body {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Hero Section */
 
 .hero {
@@ -218,8 +174,6 @@ body {
     
 }
 
-
-
 .profile-img {
     width: 400px;
     height: 400px;
@@ -228,7 +182,7 @@ body {
     border: 3px solid var(--accent);
     box-shadow: 0 0 50px var(--accent-glow);
     animation: float 3s ease-in-out infinite;
-    filter: grayscale(0.2) contract(1.1);
+    filter: grayscale(0.2) contrast(1.1);
     margin-right: 150px;
     margin-top: 100px;
 }
@@ -242,17 +196,6 @@ body {
         transform: translateY(-20px);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 /* Names below images - hero */
 
@@ -311,12 +254,7 @@ body {
    color: var(--accent);
    transform: translateY(-3px);
 
-}
-
-
-
-
-
+ }
 /* Rede Social - Davi */
 
 .social-links-dl {
@@ -341,21 +279,11 @@ body {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
 .hero h1 {
     font-size: 4rem;
     margin-bottom: 1.5rem;
     background: linear-gradient(45deg, var(--accent) 30%, #ffffff 70%);
+    background-clip: text;
     -webkit-background-clip: text; 
     -webkit-text-fill-color: transparent;
 }
@@ -367,19 +295,6 @@ body {
     opacity: 0.9;
     max-width: 600px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Skills Section - Amanda */
 
@@ -401,7 +316,7 @@ body {
    padding: 2rem;
    border-radius: 15px;
    background: rgba(13, 2, 58, 0.125);
-   transition: all 0.3 ease;
+   transition: all 0.3s ease;
    border: 1px solid rgba(255, 255, 255, 0.1);
    backdrop-filter: blur(5px);
 }
@@ -440,7 +355,7 @@ body {
    padding: 2rem;
    border-radius: 15px;
    background: rgba(13, 2, 58, 0.125);
-   transition: all 0.3 ease;
+   transition: all 0.3s ease;
    border: 1px solid rgba(255, 255, 255, 0.1);
    backdrop-filter: blur(5px);
 }
@@ -457,23 +372,6 @@ body {
     margin-bottom: 1rem;
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Footer */
 
@@ -525,8 +423,6 @@ body {
         text-align: center;
         padding-top: 8rem;
     }
-
-
 
  .hero-content {
     padding-right: 0;

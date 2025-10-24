@@ -11,18 +11,25 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style-about-us.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style_about_us.css')}}">
     
 </head>
 
 
 <body>
     <nav class="navbar">
-        <a href="Assets/logo.png" class="logo">Manvi</a>
+        <a href="{{url_for('static', filename='images/logo.png')}}" class="logo">Manvi</a>
         <ul class="nav-links">
+<<<<<<< HEAD
                 <li><a href="{{url_for('main')}}">Início</a></li> 
                 <li><a href="{{url_for('about_us')}}">Sobre Nós</a></li>
                 <li><a href="{{url_for('oftenquestions')}}">FAQs</a></li>
+=======
+                <li><a href="main.html">Início</a></li> 
+                <li><a href="authentic.html">Cadastre-se</a></li>
+                <li><a href="about_us.html">Sobre Nós</a></li>
+                <li><a href="oftenquestions.html">FAQs</a></li>
+>>>>>>> a398d9179cc76debe03fd4e97f78209c62755e3c
         </ul>
     </nav>
 
