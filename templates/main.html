@@ -8,7 +8,7 @@
 
   <meta charset="UTF-8">
   <title>Início - MS</title>
-  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='images/logo.png')}}">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -34,7 +34,7 @@
             <ul class="menu">
             <li><a href="{{ url_for('main') }}">Início</a></li>
             <li><a href="{{ url_for('authentic') }}">Entrar</a></li>
-            <li><a href="{{ url_for('about-us') }}">Sobre Nós</a></li>
+            <li><a href="{{ url_for('about_us') }}">Sobre Nós</a></li>
             <li><a href="{{ url_for('oftenquestions') }}">FAQs</a></li>
             </ul>
      </nav>
@@ -50,7 +50,7 @@
     <section class="hero">
 
     <img src="{{url_for('static', filename='images/Cabecalho.png')}}" alt="Banner" class="hero-bg">
-  
+     
     <div class="hero-content">
     <h1>Descubra seu potencial com o Manvi</h1>
     <p>Uma plataforma inteligente que analisa seu desempenho e conecta você a oportunidades.</p>
