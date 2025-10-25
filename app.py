@@ -1,16 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for
-from dotenv import load_dotenv
-import os
 import sqlite3
+import os
+from dotenv import load_dotenv
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
 def get_connect():
-    con = sqlite3.connect("questions_bank.db")
+    con = sqlite3.connect('questions_bank.db')
     con.row_factory = sqlite3.Row
     return con
 
-# Rota inicial (entra pelo authentic, mas redireciona pro main)
+# --- ROTAS PRINCIPAIS ---
+
 @app.route("/")
 def home():
     return redirect(url_for("main"))
@@ -37,33 +38,21 @@ def exam(exam_id):
 def submit_result():
     data = request.form
     respostas = {}
-    exam_id = data.get("exam_id")
-    qntd_acertos = 0
+    for key in data:
+        respostas[key] = data[key]
+    return "Resultado recebido com sucesso!"
 
-    for key in data.keys():
-        if key.startswith("q"):
-            respostas[key] = data.get(key)
 
-    con = get_connect()
-    cur = con.cursor()
+# --- NOVAS PÁGINAS HTML ---
+@app.route("/about-us")
+def about_us():
+    return render_template("about_us.html")
 
-    cur.execute("SELECT id, correct_option FROM question WHERE exam_id = ?", (exam_id,))
-    resp_right = cur.fetchall()
+@app.route("/oftenquestions")
+def oftenquestions():
+    return render_template("oftenquestions.html")
 
-    for resp in resp_right:
-        resp_user = respostas.get(f"q{resp['id']}")
-        if resp_user == resp["correct_option"]:
-            qntd_acertos += 1
-    
-    cur.execute(
-        "INSERT INTO user_result (exam_id, correct, total) VALUES (?, ?, ?)",
-        (exam_id, qntd_acertos, len(resp_right))
-    )
-    con.commit()
-    cur.close()
-    con.close()
 
-    return redirect(url_for("main"))
-
+# --- EXECUÇÃO ---
 if __name__ == "__main__":
     app.run(debug=True)
