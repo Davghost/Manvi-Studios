@@ -38,13 +38,27 @@ CREATE TABLE IF NOT EXISTS user_result(
 """)
 
 cur.execute("""
-CREATE TABLE users(
+CREATE TABLE IF NOT EXISTS users(
    id INTEGER PRIMARY KEY,
    username TEXT NOT NULL UNIQUE,
    email TEXT NOT NULL UNIQUE,
    password_hash TEXT NOT NULL,
    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
    last_login DATETIME
+   );
+""")
+
+cur.execute("""
+CREATE TABLE IF NOT EXISTS user_answer(
+   id INTEGER PRIMARY KEY,
+   user_id INTEGER NOT NULL,
+   exam_id INTEGER NOT NULL,
+   question_id INTEGER NOT NULL,
+   selected_option TEXT NOT NULL CHECK(selected_option IN ('A', 'B', 'C', 'D')),
+   answered_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+   FOREIGN KEY (user_id) REFERENCES users (id),
+   FOREIGN KEY (exam_id) REFERENCES exam (id),
+   FOREIGN KEY (question_id) REFERENCES question(id)
    );
 """)
 

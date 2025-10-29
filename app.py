@@ -10,16 +10,11 @@ from auth import auth_blueprint
 
 load_dotenv()
 
-<<<<<<< HEAD
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 app.register_blueprint(auth_blueprint, url_prefix="/auth")
-=======
-app = Flask(__name__, static_folder='static', template_folder='templates')
->>>>>>> a398d9179cc76debe03fd4e97f78209c62755e3c
 
 
-<<<<<<< HEAD
 def login_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -27,16 +22,6 @@ def login_required(f):
             return redirect(url_for("auth.auth"))
         return f(*args, **kwargs)
     return decorated
-=======
-# Rota inicial (entra pelo authentic, mas redireciona pro main)
-@app.route("/")
-def home():
-    return redirect(url_for("main"))
-
-@app.route("/authentic")
-def authentic():
-    return render_template("authentic.html")
->>>>>>> a398d9179cc76debe03fd4e97f78209c62755e3c
 
 @app.route('/')
 @login_required
@@ -45,10 +30,12 @@ def main():
     return render_template("main.html", username=username)
 
 @app.route("/about_us")
+@login_required
 def about_us():
     return render_template("about_us.html")
 
 @app.route("/oftenquestions")
+@login_required
 def oftenquestions():
     return render_template("oftenquestions.html")
 
@@ -62,6 +49,26 @@ def exam(exam_id):
     cur.close()
     con.close()
     return render_template("exam.html", exam=exam, questions=questions)
+
+@app.route("/exam_result/<int:exam_id>")
+@login_required
+def exam_result(exam_id):
+    user_id = session["user_id"]
+    con = get_connect()
+    cur = con.cursor()
+    
+    questions = cur.execute("""
+        SELECT * FROM question WHERE exam_id = ?
+    """, (exam_id,)).fetchall()
+
+    user_answers = cur.execute("""
+        SELECT question_id, selected_option FROM user_answer WHERE exam_id = ? AND user_id = ?         
+    """, (exam_id, user_id)).fetchall()
+
+    answer_dict = {ua["question_id"]: ua["selected_option"] for ua in user_answers}
+    cur.close()
+    con.close()
+    return render_template("exam_result.html", questions=questions, answers=answer_dict)
 
 @app.route("/submit_result", methods=["POST"])
 @login_required
@@ -90,6 +97,14 @@ def submit_result():
         "INSERT INTO user_result (exam_id, correct, total) VALUES (?, ?, ?)",
         (exam_id, qntd_acertos, len(resp_right))
     )
+
+    for key, selected_option in respostas.items():
+        question_id = int(key[1:])
+        cur.execute(
+            "INSERT INTO user_answer(user_id, exam_id, question_id, selected_option) VALUES (?, ?, ?, ?)",
+            (session["user_id"], exam_id, question_id, selected_option)
+        )
+
     con.commit()
     cur.close()
     con.close()
