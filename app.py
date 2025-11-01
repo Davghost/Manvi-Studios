@@ -46,6 +46,8 @@ def exam(exam_id):
     cur = con.cursor()
     exam = cur.execute("SELECT * FROM exam WHERE id = ?", (exam_id,)).fetchone()
     questions = cur.execute("SELECT * FROM question WHERE exam_id = ?", (exam_id,)).fetchall()
+    #answers_render = cur.execute("SELECT question_id, selected_option FROM user_answer WHERE user_id = ? AND exam_id = ?", (session['user_id'], exam_id)).fetchall()
+    #answer = {ua["question_id"]: ua["selected_option"] for ua in answers_render}
     cur.close()
     con.close()
     return render_template("exam.html", exam=exam, questions=questions)
@@ -66,9 +68,15 @@ def exam_result(exam_id):
     """, (exam_id, user_id)).fetchall()
 
     answer_dict = {ua["question_id"]: ua["selected_option"] for ua in user_answers}
-    cur.close()
+
+    correct_dict = {q["id"]: q["correct_option"] for q in questions}
+
+    exam = cur.execute("SELECT * FROM exam WHERE id = ?", (exam_id,)).fetchone()
+
+    cur.close()     
     con.close()
-    return render_template("exam_result.html", questions=questions, answers=answer_dict)
+    return render_template("exam.html", exam=exam, questions=questions, answers=answer_dict, submit=True, correct_options=correct_dict)
+#exam_result.html
 
 @app.route("/submit_result", methods=["POST"])
 @login_required
@@ -109,7 +117,7 @@ def submit_result():
     cur.close()
     con.close()
 
-    return redirect(url_for("main"))
+    return redirect(url_for("exam_result", exam_id=exam_id))
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -5,46 +5,107 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>{% block title %}{{exam['title']}}{% endblock %}</title>
    <link rel="stylesheet" href="{{url_for('static', filename='css/exam.css')}}">
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
 
-   <header>
-      <div class="head-exam">
-         <h2>Manvi Studios</h2>
-         <a href="#">
-            <img src="{{ url_for('static', filename='images/post_amanda.jpeg') }}" alt="Imagem do Usuário">
-            <span>Usuário</span>
-         </a>
-      </div>
-   </header>
+<header>
+   <div class="head-exam">
+      <h2>Manvi Studios</h2>
+      <a href="#">
+         <img src="{{ url_for('static', filename='images/post_amanda.jpeg') }}" alt="Imagem do Usuário">
+         <span>Usuário</span>
+      </a>
+   </div>
+</header>
+<main>
+   <div class="main-second">
+   <div class="container-exam">
+      <h2>{% block exam_title %}{{ exam['title'] }}{% endblock %}</h2>
+      <p>{% block exam_description %}{{ exam['description'] }}{% endblock %}</p>
 
-   <main>
+      {% block exam_content %}
+      <form id="examForm" action="{{ url_for('submit_result') }}" method="POST">
+      <input type="hidden" name="exam_id" value="{{ exam['id'] }}">
+      {% if submit == True %}
+      {% for q in questions %}
+         {% set qid = q['id'] %}
+         {% set user_answer = answers[qid] if qid in answers else None %}
+                  
+            <div class="questions">
+                <p><strong>{{ loop.index }}. {{ q['statement'] }}</strong></p>
+         
+                <label class="{% if correct_options[qid] == 'A' %}correct{% elif user_answer == 'A' and user_answer != correct_options[qid] %}wrong{% endif %}">
+                    <input type="radio" name="q{{ qid }}" value="A" {% if user_answer == 'A' %}checked{% endif %} disabled>
+                    {{ q.opt_a }}
+                </label><br>
+             
+                <label class="{% if correct_options[qid] == 'B' %}correct{% elif user_answer == 'B' and user_answer != correct_options[qid] %}wrong{% endif %}">
+                    <input type="radio" name="q{{ qid }}" value="B" {% if user_answer == 'B' %}checked{% endif %} disabled>
+                    {{ q.opt_b }}
+                </label><br>
+             
+                <label class="{% if correct_options[qid] == 'C' %}correct{% elif user_answer == 'C' and user_answer != correct_options[qid] %}wrong{% endif %}">
+                    <input type="radio" name="q{{ qid }}" value="C" {% if user_answer == 'C' %}checked{% endif %} disabled>
+                    {{ q.opt_c }}
+                </label><br>
+             
+                <label class="{% if correct_options[qid] == 'D' %}correct{% elif user_answer == 'D' and user_answer != correct_options[qid] %}wrong{% endif %}">
+                    <input type="radio" name="q{{ qid }}" value="D" {% if user_answer == 'D' %}checked{% endif %} disabled>
+                    {{ q.opt_d }}
+                </label><br>
+            </div>
+         {% endfor %}
+      <button type="button" id="exitButton">Confirmar e sair</button>
+               
+      <script>
+      document.getElementById("exitButton").addEventListener("click", () => {
+         Swal.fire({
+            title: "Deseja realmente sair?",
+            text: "Suas respostas já foram registradas.",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, sair",
+            cancelButtonText: "Cancelar"
+         }).then((result) => {
+            if (result.isConfirmed) {
+               Swal.fire({
+                  title: "Saindo...",
+                  text: "Redirecionando para a página inicial.",
+                  icon: "success",
+                  showConfirmButton: false,
+                  timer: 1500
+               });
+            
+               setTimeout(() => {
+                  window.location.href = "{{ url_for('main') }}";
+               }, 1500);
+            }
+         });
+      });
+      </script>
+      
 
-      <div class="main-second">
-
-      <div class="container-exam">
-         <h2>{% block exam_title %}{{ exam['title'] }}{% endblock %}</h2>
-         <p>{% block exam_description %}{{ exam['description'] }}{% endblock %}</p>
-   
-         {% block exam_content %}
-         <form id="examForm" action="{{ url_for('submit_result') }}" method="POST">
-            <input type="hidden" name="exam_id" value="{{ exam['id'] }}">
-            {% for q in questions %}
-               <div class="questions">
-                  <p><strong>{{ loop.index }}. {{ q['statement'] }}</strong></p>
-                  <label><input type="radio" name="q{{ q['id'] }}" value="A"> {{ q['opt_a'] }} </label><br>
-                  <label><input type="radio" name="q{{ q['id'] }}" value="B"> {{ q['opt_b'] }} </label><br>
-                  <label><input type="radio" name="q{{ q['id'] }}" value="C"> {{ q['opt_c'] }}</label><br>
-                  <label><input type="radio" name="q{{ q['id'] }}" value="D"> {{ q['opt_d'] }}</label><br>
-               </div>
-            {% endfor %}
-            <button type="submit" id="SubmitExame">Enviar Respostas</button>
-         </form>
-         {% endblock %}
-      </div>
-      </div>
-
-   </main>
+         {% else %}
+         {% for q in questions %}
+            <div class="questions">
+               <p><strong>{{ loop.index }}. {{ q['statement'] }}</strong></p>
+               <label><input type="radio" name="q{{ q['id'] }}" value="A"> {{ q['opt_a'] }} </label><br>
+               <label><input type="radio" name="q{{ q['id'] }}" value="B"> {{ q['opt_b'] }} </label><br>
+               <label><input type="radio" name="q{{ q['id'] }}" value="C"> {{ q['opt_c'] }}</label><br>
+               <label><input type="radio" name="q{{ q['id'] }}" value="D"> {{ q['opt_d'] }}</label><br>
+            </div>
+         {% endfor %}
+         <button type="submit" id="SubmitExame">Enviar Respostas</button>
+         {% endif %}
+      </form>
+      {% endblock %}
+   </div>
+   </div>
+</main>
 
    <footer>
       {% block footer %}{% endblock %}
