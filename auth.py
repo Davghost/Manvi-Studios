@@ -5,8 +5,6 @@ from db import get_connect
 
 import re
 
-#Check if the string starts with "The" and ends with "Spain":
-
 auth_blueprint = Blueprint("auth", __name__, template_folder="templates")
 
 @auth_blueprint.route("/", methods=["GET", "POST"])
@@ -54,6 +52,7 @@ def auth():
                     cur.execute("""
                     INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)
                     """, (username, email, password_hash))
+
                     con.commit()
                     session["user_id"] = cur.lastrowid
                     session["username"] = username

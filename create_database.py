@@ -62,6 +62,23 @@ CREATE TABLE IF NOT EXISTS user_answer(
    );
 """)
 
+cur.execute("""
+   CREATE TABLE IF NOT EXISTS user_profile(
+   id INTEGER PRIMARY KEY,
+   user_id INTEGER NOT NULL UNIQUE,
+   name TEXT NOT NULL,
+   profile_picture TEXT,
+   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+   institution TEXT NOT NULL,
+   birth_date DATE NOT NULL,
+   bio TEXT,
+   country TEXT,
+   city TEXT,
+   state TEXT,
+   FOREIGN KEY (user_id) REFERENCES users(id)
+   )
+""")
+
 con.commit()
 cur.close()
 con.close()

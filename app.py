@@ -7,12 +7,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from db import get_connect
 from auth import auth_blueprint
+from user_profile.routes import profile_bp
 
 load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 app.register_blueprint(auth_blueprint, url_prefix="/auth")
+app.register_blueprint(profile_bp, url_prefix="/user")
 
 
 def login_required(f):
