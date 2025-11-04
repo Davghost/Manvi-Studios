@@ -1,0 +1,21 @@
+*{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+.hidden {
+   display: none;
+}
+
+.profile-container, form {
+   margin: 20px;
+   padding: 15px;
+   border: 1px solid #ddd;
+   border-radius: 10px;
+   width: 300px;
+}
+
+button {
+   margin-top: 10px;
+}

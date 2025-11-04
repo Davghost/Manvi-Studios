@@ -25,10 +25,11 @@ def save_profile_picture(file, user_id, size=(300, 300)):
     # Caminho final
     file_path = os.path.join(folder_path, filename)
 
-    # Salva a imagem temporariamente e redimensiona
+    #Salva a imagem temporariamente e redimensiona
     img = Image.open(file)
     img.thumbnail(size)
     img.save(file_path)
 
     # Retorna o caminho relativo que será salvo no banco
-    return os.path.join(subfolder, filename)
+    relative_path = f"{subfolder}/{filename}"
+    return relative_path

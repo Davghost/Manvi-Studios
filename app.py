@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from dotenv import load_dotenv
 
 #from flask_httpauth import HTTPBasicAuth
+from decorators import login_required
+
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
@@ -15,15 +17,6 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 app.register_blueprint(auth_blueprint, url_prefix="/auth")
 app.register_blueprint(profile_bp, url_prefix="/user")
-
-
-def login_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        if "user_id" not in session:
-            return redirect(url_for("auth.auth"))
-        return f(*args, **kwargs)
-    return decorated
 
 @app.route('/')
 @login_required
