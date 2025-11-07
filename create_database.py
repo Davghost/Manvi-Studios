@@ -79,6 +79,34 @@ cur.execute("""
    )
 """)
 
+cur.execute("""
+   CREATE TABLE IF NOT EXISTS teachers(
+   id INTEGER PRIMARY KEY,
+   username TEXT NOT NULL UNIQUE,
+   email TEXT NOT NULL UNIQUE,
+   password_hash TEXT NOT NULL,
+   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+   last_login DATETIME
+   );
+""")
+
+cur.execute("""
+   CREATE TABLE IF NOT EXISTS teacher_profile(
+   id INTEGER PRIMARY KEY,
+   teacher_id INTEGER NOT NULL UNIQUE,
+   name TEXT NOT NULL,
+   profile_picture TEXT,
+   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+   institution TEXT NOT NULL,
+   birth_date DATE NOT NULL,
+   bio TEXT,
+   country TEXT,
+   city TEXT,
+   state TEXT,
+   FOREIGN KEY (teacher_id) REFERENCES teachers(id)
+   )
+""")
+
 con.commit()
 cur.close()
 con.close()

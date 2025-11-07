@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from dotenv import load_dotenv
 
 #from flask_httpauth import HTTPBasicAuth
-from decorators import login_required
+from decorators import login_required, professor_required, aluno_required
 
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -19,23 +19,21 @@ app.register_blueprint(auth_blueprint, url_prefix="/auth")
 app.register_blueprint(profile_bp, url_prefix="/user")
 
 @app.route('/')
-@login_required
 def main():
     username = session.get("username")
     return render_template("main.html", username=username)
 
 @app.route("/about_us")
-@login_required
 def about_us():
     return render_template("about_us.html")
 
 @app.route("/oftenquestions")
-@login_required
 def oftenquestions():
     return render_template("oftenquestions.html")
 
 @app.route("/exam/<int:exam_id>")
 @login_required
+@aluno_required
 def exam(exam_id):
     con = get_connect()
     cur = con.cursor()
@@ -49,6 +47,7 @@ def exam(exam_id):
 
 @app.route("/exam_result/<int:exam_id>")
 @login_required
+@aluno_required
 def exam_result(exam_id):
     user_id = session["user_id"]
     con = get_connect()
@@ -75,6 +74,7 @@ def exam_result(exam_id):
 
 @app.route("/submit_result", methods=["POST"])
 @login_required
+@aluno_required
 def submit_result():
     data = request.form
     respostas = {}

@@ -6,10 +6,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
 </head>
 <body>
-    <h1>Perfil do Usuário</h1>
-
     <!-- MODO DE EXIBIÇÃO -->
-    <div class="profile-container" id="view-mode">
+    <div class="profile-container">
 
         <div class="left-container">
 
@@ -18,29 +16,29 @@
         <div class="right-container">
 
             <div class="banner">
-
-            </div>
-            <div class="under-container">
-                {% if profile.profile_picture %}
-                    <div class="profile-picture">
-                        <img src="{{ url_for('static', filename='profile_pics/' ~ profile['profile_picture']) }}" 
-                             alt="Profile Picture" width="150">
-                    </div>
-                {% endif %}
-                
-                <p><strong>Nome:</strong> {{ profile.name or '—' }}</p>
-                <p><strong>Instituição:</strong> {{ profile.institution or '—' }}</p>
-                <p><strong>Data de Nascimento:</strong> {{ profile.birth_date or '—' }}</p>
-                <p><strong>Bio:</strong></p>
-                <textarea readonly rows="4">{{ profile.bio or '' }}</textarea>
-                <p><strong>País:</strong> {{ profile.country or '—' }}</p>
-                <p><strong>Estado:</strong> {{ profile.state or '—' }}</p>
-                <p><strong>Cidade:</strong> {{ profile.city or '—' }}</p>
-                
-                <button id="edit-btn">Editar Perfil</button>
+                <h2>{{profile.name}}</h2>
             </div>
 
-        </div><!---right container-->>
+            {% if profile.profile_picture %}
+                <div class="profile-picture">
+                <img src="{{ url_for('static', filename='profile_pics/' ~ profile['profile_picture']) }}" 
+                alt="Profile Picture" width="150">
+                </div>
+            {% endif %}
+            <div class="under-container" id="view-mode">            
+                    <p><strong>Nome:</strong> {{ profile.name or '—' }}</p>
+                    <p><strong>Instituição:</strong> {{ profile.institution or '—' }}</p>
+                    <p><strong>Data de Nascimento:</strong> {{ profile.birth_date or '—' }}</p>
+                    <p><strong>Bio:</strong></p>
+                    <textarea readonly rows="4">{{ profile.bio or '' }}</textarea>
+                    <p><strong>País:</strong> {{ profile.country or '—' }}</p>
+                    <p><strong>Estado:</strong> {{ profile.state or '—' }}</p>
+                    <p><strong>Cidade:</strong> {{ profile.city or '—' }}</p>
+                    
+                    <button id="edit-btn">Editar Perfil</button>
+                    <a href="{{url_for('auth.logout')}}">Logout</a>
+            </div>
+        </div><!---right container-->
     </div>
 
 
@@ -74,7 +72,7 @@
         <button type="submit">Salvar</button>
         <button type="button" id="cancel-btn">Cancelar</button>
     </form>
-
+    </div>
     <script>
         const editBtn = document.getElementById('edit-btn');
         const cancelBtn = document.getElementById('cancel-btn');

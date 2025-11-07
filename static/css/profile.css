@@ -9,13 +9,129 @@
 }
 
 .profile-container, form {
-   margin: 20px;
-   padding: 15px;
+   display: flex;
    border: 1px solid #ddd;
    border-radius: 10px;
-   width: 300px;
+   overflow-x: hidden;
 }
 
 button {
    margin-top: 10px;
+}
+
+.left-container{
+   width: 20%;
+   height: 100vh;
+   overflow-y: hidden;
+   background-color: rgb(12, 22, 63);
+}
+
+.banner h2{
+   text-align: center;
+   font-size: 30px;
+}
+
+.right-container{
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+   width: 80%;
+   background-color: rgb(37, 5, 106);
+   height: 100vh;
+   overflow-y: hidden;
+}
+
+.banner{
+   width: 95%;
+   height: 15vw;
+   background-color: blue;
+   border-radius: 12px;
+   margin: 5px auto;
+}
+
+.profile-picture img{
+   width: 160px;
+   height: 150px;
+   border-radius: 50%;
+}
+.profile-picture{
+   margin-left: 5%;
+   position: absolute;
+   top: 100px;
+}
+
+.under-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+
+   width: 45%;
+   height: 70vh;
+   margin: 0 auto;
+   padding: 25px 30px;
+
+   background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
+   border-radius: 16px;
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+
+   color: #f5f5f5;
+   text-align: left;
+   transition: all 0.3s ease;
+}
+
+/* Efeito suave quando passa o mouse no container */
+.under-container:hover {
+   transform: translateY(-3px);
+   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+}
+
+/* Estilo dos títulos e textos dentro */
+.under-container p {
+   font-size: 1rem;
+   margin: 8px 0;
+   line-height: 1.4;
+}
+
+.under-container strong {
+   color: #4da3ff; /* Azul vibrante para destacar labels */
+}
+
+/* Estilo da área de texto (bio) */
+.under-container textarea {
+   background-color: #111;
+   color: #fff;
+   border: 1px solid #333;
+   border-radius: 8px;
+   padding: 10px;
+   width: 100%;
+   resize: none;
+   font-family: inherit;
+   font-size: 0.95rem;
+   transition: border 0.3s ease, background-color 0.3s ease;
+}
+
+.under-container textarea:focus {
+   outline: none;
+   border-color: #4da3ff;
+   background-color: #0f0f0f;
+}
+
+/* Botão moderno */
+#edit-btn {
+   margin-top: 20px;
+   padding: 10px 20px;
+   font-size: 1rem;
+   border: none;
+   border-radius: 8px;
+   background: linear-gradient(135deg, #007bff, #0056b3);
+   color: #fff;
+   cursor: pointer;
+   transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#edit-btn:hover {
+   background: linear-gradient(135deg, #339cff, #007bff);
+   transform: scale(1.05);
 }

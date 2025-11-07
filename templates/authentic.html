@@ -22,14 +22,16 @@
             <button onclick="showForm('cadastro-aluno')">Cadastro aluno</button>
         </div>
 
-        <form id="login-professor" class="form-section" style="display:none;">
+        <form method="POST" action="{{url_for('auth.auth')}}" id="login-professor" class="form-section" style="display:none;">
+            <input type="hidden" name="form_type" value="login-professor">
             <h2>Login Professor</h2>
             <input type="text" name="username" placeholder="Usuário">
             <input type="password" name="password" placeholder="Senha">
             <button type="submit">Entrar</button>
         </form>
 
-        <form id="cadastro-professor" class="form-section" style="display:none;">
+        <form method="POST" action="{{url_for('auth.auth')}}" id="cadastro-professor" class="form-section" style="display:none;">
+            <input type="hidden" name="form_type" value="cadastro-professor">
             <h2>Cadastro Professor</h2>
             <input type="text" name="username" placeholder="Usuário">
             <input type="email" name="email" placeholder="Email">
