@@ -3,3 +3,4 @@ venv/
 questions_bank.db
 __pycache__/
 static/profile_pics
+data/microdados_ed_basica_2024.csv

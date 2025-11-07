@@ -2,6 +2,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from werkzeug.security import check_password_hash, generate_password_hash
 from db import get_connect
+from decorators import login_required
 
 import re
 
@@ -95,6 +96,7 @@ def auth():
 
     return render_template("authentic.html", error=error)
 
+@login_required
 @auth_blueprint.route("/logout")
 def logout():
     session.clear()
