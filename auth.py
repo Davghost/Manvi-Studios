@@ -98,4 +98,4 @@ def auth():
 @auth_blueprint.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("auth.auth"))
+    return redirect(url_for("main"))

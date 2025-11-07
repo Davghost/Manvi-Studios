@@ -107,6 +107,19 @@ cur.execute("""
    )
 """)
 
+cur.execute("""
+CREATE TABLE IF NOT EXISTS escolas (
+    codigo_inep TEXT PRIMARY KEY,
+    nome TEXT,
+    municipio TEXT,
+    uf TEXT,
+    regiao TEXT,
+    ano_censo TEXT,
+    cep TEXT,
+    nome_uf TEXT
+);
+""")
+
 con.commit()
 cur.close()
 con.close()
