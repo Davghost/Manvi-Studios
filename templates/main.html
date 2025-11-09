@@ -30,10 +30,14 @@
   <header>
     
      <nav class="navbar">
-         <div class="logo">Manvi</div>
+          <img src="{{ url_for('static', filename='images/minilogo.png') }}" alt="Manvi Studios Hat" class="logo">
+          <img src="{{ url_for('static', filename='images/manvistudios.png') }}" alt="Manvi Studios" class="logotext">
             <ul class="menu">
             <li><a href="{{ url_for('main') }}">Início</a></li>
             <li><a href="{{ url_for('about_us') }}">Sobre Nós</a></li>
+            {% if not session.get("user_id") %}
+            <li><a href="{{ url_for('auth.auth') }}">Autentificação</a></li>
+            {% endif %}
             <li><a href="{{ url_for('oftenquestions') }}">FAQs</a></li>
             </ul>
      </nav>
@@ -55,7 +59,9 @@
     <p>Uma plataforma inteligente que analisa seu desempenho e conecta você a oportunidades.</p>
     <div class="hero-buttons">
       <a href="" class="btn-primary">Começar agora gratuitamente</a>
+      {% if session.get("role") == "aluno" %}
       <a href="{{url_for('exam', exam_id=1)}}" class="btn-secondary">Estude Aqui</a>
+      {% endif %}
     </div>
     </div>
 
@@ -63,12 +69,7 @@
 
 
 
-
-
-
-
-
-   <!-- Definição -->
+<div class="white-page">
 
   <section id="introduction">
 
@@ -76,15 +77,16 @@
   <h1 class="title">O que é o Manvi Studios?</h1>
 
   <p>
-    O Manvi Studios criou-se para transformar a experiência educacional
+    O Manvi Studios foi criado para transformar a experiência educacional
     dos alunos, facilitar a busca por oportunidades acadêmicas, 
     no contato direto com empresas, startups, e organizações
     que buscam grandes talentos para fazer parte de seu ambiente.
   </p>
 
 
-
   </section>
+
+
   
   <div class="benefits-container">
     <!-- Benefícios para os estudantes -->
@@ -140,62 +142,35 @@
 
 
   <section id="conclusion">
-  <h2>Nosso compromisso:</h2>  
+  <h2>Nosso compromisso</h2>  
       <p>O Manvi Studios está comprometido em criar um ambiente onde estudantes, escolas, empresas e startups possam se conectar, colaborar e crescer juntos.     Acreditamos que, ao unir esses diferentes atores, podemos transformar a educação e o mercado de trabalho, criando oportunidades significativas para todos os envolvidos.</p>
   </section>
 
-
-  <section id="motivation">
-  <img src="{{url_for('static', filename='images/homephrase.png')}}" alt="Grandes talentos começam aqui - Amanda Yuna" id="motivation-image">
-  </section>
-
-  <section id="banner">
-  <video autoplay muted loop id="banner-video">
-    <source src="{{url_for('static', filename='images/banner.mp4')}}" type="video/mp4">
-    Seu navegador não suporta vídeo.
-  </video>
-  </section>
-   
-
+ 
   <section id="vision"> 
   <h2>Nossa visão e missão</h2>  
       <p>Ser a plataforma líder em conectar estudantes, escolas, empresas e startups, promovendo um ecossistema vibrante de aprendizado, inovação e oportunidades profissionais.</p>
   </section>
 
-
-  <section id="call-to-action">
-  <h2>Junte-se a nós nessa jornada de transformação educacional e profissional!</h2>
-  </section>
-      
-
-
   
+  <!-- Footer -->
 
-  
-  <footer>
-        
-
-        <section id="contact-info">
-            <p>Contato</p>
-            <a href="mailto:manvistudiosms@gmail.com">manvistudiosms@gmail.com</a>
-        </section>
-
-        <div class="social-media">
-                    <h3 id="call-us">Redes Sociais</h3>
-                    <div class="social-icons">
-                        <a href="https://www.instagram.com/manvistudiosms"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/in/manvi-studios-23b13b388/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+    <footer>
+        <div class="serious">
+        <a href="privacy-policy.html">Política de Privacidade</a>
+        <h1>🔭</h1>
+        <a href="terms-of-service.html">Termos de Serviço</a> 
         </div>
-
-        <section id="copyright">
-            <p>&copy; 2023 Manvi Studios. Todos os direitos reservados.</p>
-        </section>
-
-
-  </footer>
-     
-
+        
+        
+        <div class="social-link-general">
+        <a href="mailto:manvistudiosms@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/manvi-studios-23b13b388/"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/manvistudiosms/"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+    
+        <p>&copy; 2024 Manvi. Todos os direitos reservados.</p>
+    </footer>
 
    <canvas id="particles"></canvas>
    <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
@@ -226,7 +201,5 @@
 
 
   
-    </body>
-</html> 
-
-  
+    </body>
+</html>

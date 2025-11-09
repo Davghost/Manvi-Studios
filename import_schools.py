@@ -3,10 +3,6 @@ import sqlite3
 import os
 from db import get_connect
 
-# --------------------------------------------------------
-# CONFIGURAÇÕES
-# --------------------------------------------------------
-
 CSV_PATH = "data/microdados_ed_basica_2024.csv"   # caminho do seu CSV
 COLUNAS = [
     "NU_ANO_CENSO",
@@ -19,18 +15,10 @@ COLUNAS = [
     "CO_CEP"
 ]
 
-# --------------------------------------------------------
-# PASSO 1 – Validar caminhos e pastas
-# --------------------------------------------------------
-
 if not os.path.exists(CSV_PATH):
     raise FileNotFoundError(f"Arquivo CSV não encontrado: {CSV_PATH}")
 
 print("Lendo arquivo CSV do INEP...")
-
-# --------------------------------------------------------
-# PASSO 2 – Ler o CSV com ENCODING correto
-# --------------------------------------------------------
 
 df = pd.read_csv(
     CSV_PATH,
@@ -42,10 +30,6 @@ df = pd.read_csv(
 
 print("CSV carregado com sucesso:")
 print(df.head(), "\n")
-
-# --------------------------------------------------------
-# PASSO 3 – Normalizar nomes das colunas
-# --------------------------------------------------------
 
 df = df.rename(columns={
     "NU_ANO_CENSO": "ano_censo",
@@ -61,35 +45,22 @@ df = df.rename(columns={
 print("Colunas renomeadas:")
 print(df.head(), "\n")
 
-# --------------------------------------------------------
-# PASSO 4 – Conectar ao SQLite
-# --------------------------------------------------------
-
 con = get_connect()
 cur = con.cursor()
 
 print("Limpando tabela 'escolas'...")
 
-# Apaga apenas os dados, mantém estrutura
 cur.execute("DELETE FROM escolas;")
 con.commit()
 
 print("Importando dados...")
 
-# --------------------------------------------------------
-# PASSO 5 – Importar para SQLite
-# --------------------------------------------------------
-
 df.to_sql(
     "escolas",
     con,
-    if_exists="append",   # insere dados, não recria a tabela!
+    if_exists="append",
     index=False
 )
-
-# --------------------------------------------------------
-# PASSO 6 – Mostrar resumo
-# --------------------------------------------------------
 
 cur.execute("SELECT COUNT(*) FROM escolas;")
 total = cur.fetchone()[0]

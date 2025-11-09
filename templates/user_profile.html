@@ -1,95 +1,115 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Perfil do Usuário</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
-</head>
-<body>
-    <!-- MODO DE EXIBIÇÃO -->
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Perfil do Usuário</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
     <div class="profile-container">
 
-        <div class="left-container">
+        <!-- CONTAINER LATERAL COM LINKS -->
+        <aside class="left-container">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('main') }}">Home</a></li>
+                    <li><a href="{{ url_for('profile.view_profile') }}">Meu Perfil</a></li>
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
 
-        </div>
+        <!-- CONTAINER PRINCIPAL -->
+        <main class="right-container">
 
-        <div class="right-container">
-
+            <!-- BANNER -->
             <div class="banner">
-                <h2>{{profile.name}}</h2>
+                <h2>{{ profile.name or 'Usuário' }}</h2>
             </div>
 
+            <!-- FOTO DE PERFIL -->
             {% if profile.profile_picture %}
-                <div class="profile-picture">
+            <div class="profile-picture">
                 <img src="{{ url_for('static', filename='profile_pics/' ~ profile['profile_picture']) }}" 
-                alt="Profile Picture" width="150">
-                </div>
-            {% endif %}
-            <div class="under-container" id="view-mode">            
-                    <p><strong>Nome:</strong> {{ profile.name or '—' }}</p>
-                    <p><strong>Instituição:</strong> {{ profile.institution or '—' }}</p>
-                    <p><strong>Data de Nascimento:</strong> {{ profile.birth_date or '—' }}</p>
-                    <p><strong>Bio:</strong></p>
-                    <textarea readonly rows="4">{{ profile.bio or '' }}</textarea>
-                    <p><strong>País:</strong> {{ profile.country or '—' }}</p>
-                    <p><strong>Estado:</strong> {{ profile.state or '—' }}</p>
-                    <p><strong>Cidade:</strong> {{ profile.city or '—' }}</p>
-                    
-                    <button id="edit-btn">Editar Perfil</button>
-                    <a href="{{url_for('auth.logout')}}">Logout</a>
+                    alt="Profile Picture">
             </div>
-        </div><!---right container-->
+            {% endif %}
+
+            <!-- MODO DE EXIBIÇÃO -->
+            <section class="under-container" id="view-mode">
+                <p><strong>Nome:</strong> {{ profile.name or '—' }}</p>
+                <p><strong>Código Inep da Escola:</strong> {{ profile.institution or '—' }}</p>
+                <p><strong>Nome da escola: </strong> {{ name_sch.nome or '—' }} </p>
+                <p><strong>Data de Nascimento:</strong> {{ profile.birth_date or '—' }}</p>
+                <p><strong>Bio:</strong></p>
+                <textarea readonly>{{ profile.bio or '' }}</textarea>
+                <p><strong>País:</strong> {{ profile.country or '—' }}</p>
+                <p><strong>Estado:</strong> {{ profile.state or '—' }}</p>
+                <p><strong>Cidade:</strong> {{ profile.city or '—' }}</p>
+                <button id="edit-btn">Editar Perfil</button>
+            </section>
+
+            <!-- FORMULÁRIO DE EDIÇÃO -->
+            <section id="edit-container" class="hidden">
+                <form id="edit-form" method="POST" action="{{ url_for('profile.view_profile') }}" enctype="multipart/form-data">
+                    
+                    <div class="form-column">
+                        <label>Nome:</label>
+                        <input type="text" name="name" value="{{ profile.name }}">
+
+                        <label>Código Inep da escola: </label>
+                        <input type="text" name="institution" value="{{ profile.institution }}">
+
+                        <label>Data de Nascimento:</label>
+                        <input type="date" name="birth_date" value="{{ profile.birth_date }}">
+
+                        <label>Bio:</label>
+                        <textarea name="bio" rows="4">{{ profile.bio }}</textarea>
+                    </div>
+
+                    <div class="form-column">
+                        <label>País:</label>
+                        <input type="text" name="country" value="{{ profile.country }}">
+
+                        <label>Estado:</label>
+                        <input type="text" name="state" value="{{ profile.state }}">
+
+                        <label>Cidade:</label>
+                        <input type="text" name="city" value="{{ profile.city }}">
+
+                        <label>Foto de Perfil:</label>
+                        <input type="file" name="profile_picture">
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit">Salvar</button>
+                        <button type="button" id="cancel-btn">Cancelar</button>
+                    </div>
+
+                </form>
+            </section>
+
+        </main>
     </div>
 
-
-
-    <!-- MODO DE EDIÇÃO (formulário oculto inicialmente) -->
-    <form id="edit-form" class="hidden" method="POST" action="{{ url_for('profile.view_profile') }}" enctype="multipart/form-data">
-        <label>Nome:</label>
-        <input type="text" name="name" value="{{ profile.name }}"><br>
-
-        <label>Instituição:</label>
-        <input type="text" name="institution" value="{{ profile.institution }}"><br>
-
-        <label>Data de Nascimento:</label>
-        <input type="date" name="birth_date" value="{{ profile.birth_date }}"><br>
-
-        <label>Bio:</label><br>
-        <textarea name="bio" rows="4">{{ profile.bio }}</textarea><br>
-
-        <label>País:</label>
-        <input type="text" name="country" value="{{ profile.country }}"><br>
-
-        <label>Estado:</label>
-        <input type="text" name="state" value="{{ profile.state }}"><br>
-
-        <label>Cidade:</label>
-        <input type="text" name="city" value="{{ profile.city }}"><br>
-
-        <label>Foto de Perfil:</label>
-        <input type="file" name="profile_picture"><br>
-
-        <button type="submit">Salvar</button>
-        <button type="button" id="cancel-btn">Cancelar</button>
-    </form>
-    </div>
     <script>
         const editBtn = document.getElementById('edit-btn');
         const cancelBtn = document.getElementById('cancel-btn');
         const viewMode = document.getElementById('view-mode');
-        const editForm = document.getElementById('edit-form');
-
-        // Mostrar formulário e esconder exibição
+        const editContainer = document.getElementById('edit-container');
+            
         editBtn.addEventListener('click', () => {
-            viewMode.classList.add('hidden');
-            editForm.classList.remove('hidden');
+            viewMode.classList.add('hidden');    // esconde view
+            editContainer.classList.remove('hidden'); // mostra formulário
+        });
+        
+        cancelBtn.addEventListener('click', () => {
+            viewMode.classList.remove('hidden'); // mostra view
+            editContainer.classList.add('hidden'); // esconde formulário
         });
 
-        // Cancelar edição e voltar à exibição
-        cancelBtn.addEventListener('click', () => {
-            editForm.classList.add('hidden');
-            viewMode.classList.remove('hidden');
-        });
     </script>
-</body>
-</html>
+
+    </body>
+    </html>

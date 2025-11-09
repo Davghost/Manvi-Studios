@@ -94,7 +94,11 @@ def view_profile():
 
         return redirect(url_for("profile.view_profile"))
 
+    name_sch = None
+    if profile and profile["institution"]:
+        name_sch = cur.execute("SELECT nome, codigo_inep FROM escolas WHERE codigo_inep = ?", (profile["institution"],)).fetchone()
+
     cur.close()
     con.close()
     
-    return render_template("user_profile.html", profile=profile)
+    return render_template("user_profile.html", profile=profile, name_sch=name_sch)

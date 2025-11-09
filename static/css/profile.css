@@ -1,137 +1,396 @@
-*{
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
+/* ==========================
+   RESET E BASE
+========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.hidden {
-   display: none;
+body {
+    background-color: #0d0d0d;
+    color: #f5f5f5;
+    line-height: 1.5;
 }
 
-.profile-container, form {
-   display: flex;
-   border: 1px solid #ddd;
-   border-radius: 10px;
-   overflow-x: hidden;
+/* ==========================
+   CONTAINER PRINCIPAL
+========================== */
+.profile-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: #0d0d0d;
+    transition: all 0.3s ease;
 }
 
-button {
-   margin-top: 10px;
+/* ==========================
+   LEFT NAV
+========================== */
+.left-container {
+    width: 220px;
+    background-color: #0c163f;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+    transition: width 0.3s ease;
 }
 
-.left-container{
-   width: 20%;
-   height: 100vh;
-   overflow-y: hidden;
-   background-color: rgb(12, 22, 63);
+.left-container nav ul {
+    list-style: none;
 }
 
-.banner h2{
-   text-align: center;
-   font-size: 30px;
+.left-container nav ul li {
+    margin: 12px 0;
 }
 
-.right-container{
-   display: flex;
-   flex-direction: column;
-   text-align: center;
-   width: 80%;
-   background-color: rgb(37, 5, 106);
-   height: 100vh;
-   overflow-y: hidden;
+.left-container nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    padding: 12px 20px;
+    display: block;
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
-.banner{
-   width: 95%;
-   height: 15vw;
-   background-color: blue;
-   border-radius: 12px;
-   margin: 5px auto;
+.left-container nav ul li a:hover {
+    background-color: #1a237e;
+    transform: scale(1.05);
 }
 
-.profile-picture img{
-   width: 160px;
-   height: 150px;
-   border-radius: 50%;
-}
-.profile-picture{
-   margin-left: 5%;
-   position: absolute;
-   top: 100px;
+/* ==========================
+   RIGHT CONTAINER
+========================== */
+.right-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 25px;
+    gap: 20px;
 }
 
+/* ==========================
+   BANNER
+========================== */
+.banner {
+    width: 100%;
+    max-width: 900px;
+    height: 160px;
+    background: linear-gradient(135deg, #007bff, #339cff);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 40px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+}
+
+.banner h2 {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* ==========================
+   FOTO DE PERFIL
+========================== */
+.profile-picture {
+    flex-shrink: 0;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-picture img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.profile-picture img:hover {
+    transform: scale(1.05);
+}
+
+/* ==========================
+   VIEW MODE
+========================== */
 .under-container {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-
-   width: 45%;
-   height: 70vh;
-   margin: 0 auto;
-   padding: 25px 30px;
-
-   background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
-   border-radius: 16px;
-   border: 1px solid rgba(255, 255, 255, 0.1);
-   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-
-   color: #f5f5f5;
-   text-align: left;
-   transition: all 0.3s ease;
+    flex: 1;
+    background: linear-gradient(145deg, #111, #1a1a1a);
+    padding: 25px 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    color: #f5f5f5;
+    transition: all 0.3s ease;
 }
 
-/* Efeito suave quando passa o mouse no container */
-.under-container:hover {
-   transform: translateY(-3px);
-   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
-}
-
-/* Estilo dos títulos e textos dentro */
 .under-container p {
-   font-size: 1rem;
-   margin: 8px 0;
-   line-height: 1.4;
+    font-size: 1rem;
+    margin: 10px 0;
 }
 
-.under-container strong {
-   color: #4da3ff; /* Azul vibrante para destacar labels */
+.under-container strong { 
+    color: #4da3ff; 
 }
 
-/* Estilo da área de texto (bio) */
 .under-container textarea {
-   background-color: #111;
-   color: #fff;
-   border: 1px solid #333;
-   border-radius: 8px;
-   padding: 10px;
-   width: 100%;
-   resize: none;
-   font-family: inherit;
-   font-size: 0.95rem;
-   transition: border 0.3s ease, background-color 0.3s ease;
+    width: 100%;
+    min-height: 4em;
+    max-height: 7em;
+    overflow-y: auto;
+    background-color: #111;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    resize: none;
 }
 
-.under-container textarea:focus {
-   outline: none;
-   border-color: #4da3ff;
-   background-color: #0f0f0f;
-}
-
-/* Botão moderno */
+/* ==========================
+   BOTÕES
+========================== */
 #edit-btn {
-   margin-top: 20px;
-   padding: 10px 20px;
-   font-size: 1rem;
-   border: none;
-   border-radius: 8px;
-   background: linear-gradient(135deg, #007bff, #0056b3);
-   color: #fff;
-   cursor: pointer;
-   transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg,#007bff,#0056b3);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 #edit-btn:hover {
-   background: linear-gradient(135deg, #339cff, #007bff);
-   transform: scale(1.05);
+    background: linear-gradient(135deg,#339cff,#007bff);
+    transform: scale(1.05);
 }
+
+/* ==========================
+   FORMULÁRIO DE EDIÇÃO
+========================== */
+#edit-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#edit-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 25px 30px;
+    background: linear-gradient(145deg,#111,#1f1f1f);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.form-column {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#edit-form label {
+    font-weight: 600;
+    color: #4da3ff;
+}
+
+#edit-form input,
+#edit-form textarea {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background-color: #111;
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+#edit-form input:focus,
+#edit-form textarea:focus {
+    border-color: #4da3ff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(77,163,255,0.4);
+}
+
+#edit-form input[type="file"] {
+    padding: 4px;
+}
+
+.form-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.form-buttons button {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.form-buttons button[type="submit"] {
+    background: #007bff;
+    color: #fff;
+}
+
+.form-buttons button[type="submit"]:hover {
+    background: #339cff;
+}
+
+.form-buttons button[type="button"] {
+    background: #444;
+    color: #fff;
+}
+
+.form-buttons button[type="button"]:hover {
+    background: #666;
+}
+
+/* ==========================
+   RESPONSIVO
+========================== */
+/* ==========================
+   RESPONSIVO
+========================== */
+/* ==========================
+   RESPONSIVO
+========================== */
+@media (max-width: 1024px) {
+    .under-container,
+    #edit-container {
+        width: 100%;
+        padding: 20px;
+        overflow-x: hidden; /* evita overflow horizontal */
+    }
+
+    #edit-form {
+        flex-direction: column;
+        gap: 15px;
+        overflow-x: hidden; /* evita scroll horizontal */
+    }
+
+    #edit-form .form-column {
+        min-width: 100%; /* inputs se ajustam ao container */
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column;
+        height: auto; /* permite rolagem normal */
+    }
+
+    .left-container {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px 0;
+    }
+
+    .left-container nav ul {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .left-container nav ul li {
+        margin: 0;
+    }
+
+    .left-container nav ul li a {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .banner {
+        height: 120px;
+        margin-bottom: 20px;
+    }
+
+    .banner h2 {
+        font-size: 1.6rem;
+    }
+
+    .profile-picture img {
+        width: 140px;
+        height: 140px;
+    }
+
+    #edit-form {
+        overflow-x: hidden; /* evita scroll horizontal */
+    }
+
+    #edit-form .form-column {
+        min-width: 100%; /* inputs ajustam ao container */
+    }
+}
+
+@media (max-width: 480px) {
+    .banner {
+        height: 100px;
+        margin-bottom: 15px;
+    }
+
+    .banner h2 {
+        font-size: 1.4rem;
+    }
+
+    .profile-picture img {
+        width: 120px;
+        height: 120px;
+    }
+
+    #edit-btn, .form-buttons button {
+        padding: 10px 18px;
+        font-size: 0.85rem;
+    }
+
+    #edit-form {
+        padding: 20px;
+        gap: 15px;
+        overflow-x: hidden; /* garante que não haja scroll horizontal */
+    }
+
+    #edit-form .form-column {
+        min-width: 100%; /* inputs ocupam todo o container */
+    }
+
+    .right-container {
+        padding: 15px;
+        gap: 15px;
+    }
+}
+

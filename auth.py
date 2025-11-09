@@ -2,13 +2,14 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from werkzeug.security import check_password_hash, generate_password_hash
 from db import get_connect
-from decorators import login_required
+from decorators import login_required, logout_required
 
 import re
 
 auth_blueprint = Blueprint("auth", __name__, template_folder="templates")
 
 @auth_blueprint.route("/", methods=["GET", "POST"])
+@logout_required
 def auth():
     error = None
     if request.method == "POST":
@@ -96,8 +97,8 @@ def auth():
 
     return render_template("authentic.html", error=error)
 
-@login_required
 @auth_blueprint.route("/logout")
+@login_required
 def logout():
     session.clear()
     return redirect(url_for("main"))

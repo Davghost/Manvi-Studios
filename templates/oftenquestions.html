@@ -21,10 +21,12 @@
 <body>
 
     <nav class="navbar">
-        <a href="{{url_for('static', filename='images/logo.png')}}" class="logo">Manvi</a>
+        <img src="{{ url_for('static', filename='images/minilogo.png') }}" alt="Manvi Studios Hat" class="logo">
+        <img src="{{ url_for('static', filename='images/manvistudios.png') }}" alt="Manvi Studios" class="logotext">
         <ul class="nav-links">
             <li><a href="{{ url_for('main') }}">Início</a></li>
             <li><a href="{{ url_for('about_us') }}">Sobre Nós</a></li>
+            <li><a href="{{ url_for('auth.auth') }}">Autentificação</a></li>
             <li><a href="{{ url_for('oftenquestions') }}">FAQs</a></li>
         </ul>
     </nav>
@@ -36,8 +38,86 @@
 
     <div class="phrase">
         <h1>"A mente que se abre a uma nova ideia jamais voltará ao seu tamanho original."</h1>
-        <a href="https://brasilescola.uol.com.br/biografia/albert-einstein.htm"><h2>— Albert Einstein</h2></a>
+        <h2>— Albert Einstein</h2>
     </div>
+
+    <section class="faq-section">
+    <h2 class="faq-title">Perguntas Frequentes</h2>
+
+    <div class="faq-container">
+
+        <div class="faq-item">
+            <button class="faq-question">Como crio uma conta no Manvi?</button>
+            <div class="faq-answer">
+                <p>Você pode criar uma conta clicando em “Autentificação” no menu superior e preenchendo os dados solicitados. Após confirmar seu e-mail, sua conta será ativada.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Posso acessar o Manvi pelo celular?</button>
+            <div class="faq-answer">
+                <p>Sim. O Manvi é totalmente responsivo e funciona perfeitamente em qualquer dispositivo móvel moderno.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Como redefinir minha senha?</button>
+            <div class="faq-answer">
+                <p>Na página de login, clique em “Esqueci minha senha”. Você receberá um e-mail com um link para redefinir sua senha com segurança.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">O Manvi é gratuito?</button>
+            <div class="faq-answer">
+                <p>Sim, o acesso básico é gratuito. Alguns recursos avançados exigem assinatura premium, exibida de forma transparente dentro da plataforma.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Como posso entrar em contato com o suporte técnico?</button>
+            <div class="faq-answer">
+                <p>Envie um e-mail para <a href="mailto:manvistudiosms@gmail.com">manvistudiosms@gmail.com</a> ou acesse a seção “Contato” dentro da sua conta Manvi.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Quais navegadores são compatíveis?</button>
+            <div class="faq-answer">
+                <p>O Manvi é otimizado para Chrome, Edge, Firefox e Safari. Versões antigas de navegadores podem ter limitações gráficas.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Meus dados são seguros?</button>
+            <div class="faq-answer">
+                <p>Sim. Todos os dados são criptografados e armazenados de acordo com as normas internacionais de segurança e privacidade.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Como participar de projetos dentro do Manvi?</button>
+            <div class="faq-answer">
+                <p>Basta acessar a seção “Projetos” dentro do painel principal e escolher um que combine com suas habilidades e interesses.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">O que fazer se o site não carregar corretamente?</button>
+            <div class="faq-answer">
+                <p>Tente atualizar a página, limpar o cache do navegador e verificar sua conexão com a internet. Se o problema persistir, entre em contato com o suporte.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Como atualizar meu perfil profissional?</button>
+            <div class="faq-answer">
+                <p>Após fazer login, vá até o painel de usuário e selecione “Editar Perfil”. Lá você pode alterar informações pessoais, habilidades e portfólio.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
 
 
 
@@ -50,8 +130,8 @@
                 <div class="row">
                    <div class="icon">1</div>
                    <div class="description">
-                    <h4>Como se inscrever e criar uma conta</h4>
-                    <p>Acessando a página de cadastro</p>
+                    <h4>Da teoria à prática</h4>
+                    <p>O futuro da sua carreira começa aqui.</p>
                    </div>
                 </div>
             </label>
@@ -61,8 +141,8 @@
                 <div class="row">
                    <div class="icon">2</div>
                    <div class="description">
-                    <h4></h4>
-                    <p>Gets better every day stay tuned</p>
+                    <h4>Aprimore suas competências e alcance novos horizontes</h4>
+                    <p>Melhore suas habilidades e conheça novas oportunidades.</p>
                    </div>
                 </div>
             </label>
@@ -72,8 +152,8 @@
                 <div class="row">
                    <div class="icon">3</div>
                    <div class="description">
-                    <h4>Globalization</h4>
-                    <p>Help people all over the money</p>
+                    <h4>Transforme conhecimento em oportunidades reais</h4>
+                    <p>Ajude pessoas em todo o mundo e crie conexões com o Manvi.</p>
                    </div>
                 </div>
             </label>
@@ -83,8 +163,8 @@
                 <div class="row">
                    <div class="icon">4</div>
                    <div class="description">
-                    <h4>Lol</h4>
-                    <p>Help people all over the money</p>
+                    <h4>Conecte-se com o mercado de trabalho</h4>
+                    <p>Conecte-se com o mercado de trabalho e evolua sua experiência profissional.</p>
                    </div>
                 </div>
             </label>
@@ -94,8 +174,8 @@
                 <div class="row">
                    <div class="icon">5</div>
                    <div class="description">
-                    <h4>Omg</h4>
-                    <p>Help people all over the money</p>
+                    <h4>Use o Manvi</h4>
+                    <p>Invista em você. Aprimore sua visão, sua mente e sua carreira.</p>
                    </div>
                 </div>
             </label>
@@ -105,8 +185,8 @@
                 <div class="row">
                    <div class="icon">6</div>
                    <div class="description">
-                    <h4>Tech</h4>
-                    <p>Help people all over the money</p>
+                    <h4>Conecte-se com empresas</h4>
+                    <p>Manvi: tecnologia com propósito.</p>
                    </div>
                 </div>
             </label>
@@ -137,6 +217,17 @@
     
     <canvas id="particles"></canvas>
     <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+
+
+    <script>
+     const faqs = document.querySelectorAll('.faq-item');
+
+     faqs.forEach(faq => {
+    faq.querySelector('.faq-question').addEventListener('click', () => {
+      faq.classList.toggle('active');
+    });
+  });
+</script>
 
 
 </body>

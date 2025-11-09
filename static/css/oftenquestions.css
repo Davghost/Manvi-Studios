@@ -25,6 +25,17 @@
 }
 
 
+
+/* Resetando margens e padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  /* Evita rolagem horizontal indesejada */
+  overflow-x: hidden; /* Bloqueia a rolagem lateral */
+  
+}
  
       body {
       margin: 0;
@@ -51,29 +62,6 @@
         background-position: 0% 50%;
       }
     }
-
-
-
-
-/* Resetando margens e padding */
-html, body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-
-  /* Evita rolagem horizontal indesejada */
-  overflow-x: hidden; /* Bloqueia a rolagem lateral */
-  
-}
-
-
-
-
-
-
-
-
-
 
 
  /* --- ESTILO FUTURISTA DA ROLAGEM --- */
@@ -184,16 +172,23 @@ html, body {
 
 }
 
-.logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--accent);
-    text-decoration: none;
-    position: relative;
-    padding-left: 2.5rem;
-
+ .logo {
+  height: 80px;
+  object-fit: contain;
+  transition: transform 0.5s ease, filter 0.5s ease;
+  cursor: pointer;
 }
 
+.logo:hover {
+  transform: scale(1.2) rotate(-30deg);
+  filter: drop-shadow(0 0 10px rgba(145, 114, 255, 0.8));
+}
+
+ .logotext {
+  height: 80px;
+  margin-right: 750px;
+  object-fit: contain;
+}
 .nav-links {
     display: flex;
     gap: 2rem;
@@ -249,34 +244,17 @@ html, body {
 
 .hero-bg { 
   position: absolute;
-  top: 40px;
   margin-bottom: 20px;
-  left: 0;
   z-index: -1; /* Fica por baixo */
-  margin-left: 140px;
-  max-width: 1200px;
-  max-height: 1200px;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* centraliza */
+  width: 80%; /* aumenta o tamanho */
+  height: auto; /* mantém proporção */
+  object-fit: cover; /* preenche o espaço */
+  
 }
 
-
-.phrase {
- 
-  position: relative;
-  display: inline-block;
-  margin-top: 40px;
-}
-
-/* Camada de blur atrás do texto */
-.phrase::before {
-  content: "";
-  position: absolute;
-  inset: -20px; /* um pouco maior que o texto */
-  backdrop-filter: blur(10px); /* aplica o desfoque atrás */
-  -webkit-backdrop-filter: blur(10px);
-  z-index: 0; /* atrás do texto */
-  border-radius: 20px;
-  opacity: 0.6; /* controla a intensidade do efeito */
-}
 
 /* Texto principal */
 .phrase h1 {
@@ -288,7 +266,7 @@ html, body {
   margin-right: 200px;
 
   /* Gradiente metálico */
-  background: linear-gradient(45deg, #5f43ff 30%, #ffffff 70%);
+  background: linear-gradient(45deg, #011abd 30%, #6b0fff 70%);
   background-clip: text;
   -webkit-background-clip: text; 
   -webkit-text-fill-color: transparent;
@@ -319,14 +297,66 @@ html, body {
 
 .phrase h2 {
     font-size: 50px;
-    background: linear-gradient(45deg, #bcb5cc 30%, #ffffff 70%);
-    background-clip: text;
-    -webkit-background-clip: text; 
-    -webkit-text-fill-color: transparent;
-    font-family: italic;
+    color: black;
     margin-left: 500px;
-    
 }
+
+ /* --- FAQ Section --- */
+.faq-section {
+  width: 80%;
+  margin: 80px auto;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 0 20px rgba(0, 90, 255, 0.2);
+}
+
+.faq-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #011abd;
+  background: linear-gradient(90deg, #011abd, #6b0fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.faq-item {
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 1.2rem;
+  color: #000;
+  font-weight: 600;
+  padding: 15px 0;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.faq-question:hover {
+  color: #6b0fff;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  color: #222;
+  padding-left: 10px;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 500px;
+  padding-bottom: 15px;
+}
+
 
 
 
@@ -497,7 +527,7 @@ html, body {
 
  .serious {
     display: flex;
-    margin-left: 510px;
+    justify-content: center;
  }
 
  .serious a {
@@ -508,7 +538,4 @@ html, body {
 
  .serious a:hover {
     transform: translateY(4px);
- }
-
-
-
+ }

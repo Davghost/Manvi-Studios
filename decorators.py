@@ -24,3 +24,11 @@ def aluno_required(f):
             return redirect(url_for("main"))
         return f(*args, **kwargs)
     return decorated
+
+def logout_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if session.get("user_id"):
+            return redirect(url_for("main"))  # já logado, não volta para login
+        return f(*args, **kwargs)
+    return wrapper

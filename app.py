@@ -21,7 +21,7 @@ app.register_blueprint(profile_bp, url_prefix="/user")
 @app.route('/')
 def main():
     username = session.get("username")
-    return render_template("main.html", username=username)
+    return render_template("main.html", username=username, role=session.get("role"))
 
 @app.route("/about_us")
 def about_us():
