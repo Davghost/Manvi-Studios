@@ -75,6 +75,7 @@ cur.execute("""
    country TEXT,
    city TEXT,
    state TEXT,
+   serie TEXT,
    FOREIGN KEY (user_id) REFERENCES users(id)
    )
 """)

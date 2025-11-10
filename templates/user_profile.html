@@ -16,6 +16,9 @@
                     <li><a href="{{ url_for('main') }}">Home</a></li>
                     <li><a href="{{ url_for('profile.view_profile') }}">Meu Perfil</a></li>
                     <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    {% if session['role'] == 'professor' %}
+                    <li><a href="{{url_for('professor.dashboard')}}">Minha área</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </aside>
@@ -38,45 +41,61 @@
 
             <!-- MODO DE EXIBIÇÃO -->
             <section class="under-container" id="view-mode">
-                <p><strong>Nome:</strong> {{ profile.name or '—' }}</p>
+                <p><strong>Nome completo:</strong> {{ profile.name or '—' }}</p>
                 <p><strong>Código Inep da Escola:</strong> {{ profile.institution or '—' }}</p>
                 <p><strong>Nome da escola: </strong> {{ name_sch.nome or '—' }} </p>
+                {% if session['role']=='aluno' %}
+                <p><strong>Série escolar: </strong> {{profile.serie or '—' }}</p>
+                {% endif %}
                 <p><strong>Data de Nascimento:</strong> {{ profile.birth_date or '—' }}</p>
                 <p><strong>Bio:</strong></p>
                 <textarea readonly>{{ profile.bio or '' }}</textarea>
                 <p><strong>País:</strong> {{ profile.country or '—' }}</p>
-                <p><strong>Estado:</strong> {{ profile.state or '—' }}</p>
-                <p><strong>Cidade:</strong> {{ profile.city or '—' }}</p>
+                <p><strong>Estado:</strong> {{ name_sch.nome_uf or '—' }}</p>
+                <p><strong>Cidade:</strong> {{ name_sch.municipio or '—' }}</p>
+                {% if editable %}
                 <button id="edit-btn">Editar Perfil</button>
+                {% endif %}
             </section>
 
             <!-- FORMULÁRIO DE EDIÇÃO -->
             <section id="edit-container" class="hidden">
+                {% if editable %}
                 <form id="edit-form" method="POST" action="{{ url_for('profile.view_profile') }}" enctype="multipart/form-data">
                     
                     <div class="form-column">
-                        <label>Nome:</label>
+                        <label>Nome Completo:</label>
                         <input type="text" name="name" value="{{ profile.name }}">
 
                         <label>Código Inep da escola: </label>
                         <input type="text" name="institution" value="{{ profile.institution }}">
 
                         <label>Data de Nascimento:</label>
-                        <input type="date" name="birth_date" value="{{ profile.birth_date }}">
+                        <input type="date" name="birth_date" value="{{ profile.birth_date }}">                     
 
                         <label>Bio:</label>
                         <textarea name="bio" rows="4">{{ profile.bio }}</textarea>
                     </div>
 
                     <div class="form-column">
+                        {% if session['role'] == 'aluno' %}
+                        <label for="serie">Sua série escolar:</label>
+                        <select id="series" name="series">
+                          <option value="9°Ano">9°Ano</option>
+                          <option value="1°Ano EM">1°Ano EM</option>
+                          <option value="2°Ano EM">2°Ano EM</option>
+                          <option value="3°Ano EM">3°Ano EM</option>
+                        </select>
+                        {% endif %}
+
                         <label>País:</label>
                         <input type="text" name="country" value="{{ profile.country }}">
 
                         <label>Estado:</label>
-                        <input type="text" name="state" value="{{ profile.state }}">
+                        <input type="text" name="state" value="{{ name_sch.nome_uf }}">
 
                         <label>Cidade:</label>
-                        <input type="text" name="city" value="{{ profile.city }}">
+                        <input type="text" name="city" value="{{ name_sch.municipio }}">
 
                         <label>Foto de Perfil:</label>
                         <input type="file" name="profile_picture">
@@ -88,11 +107,12 @@
                     </div>
 
                 </form>
+                {% endif %}
             </section>
 
         </main>
     </div>
-
+    {% if editable %}
     <script>
         const editBtn = document.getElementById('edit-btn');
         const cancelBtn = document.getElementById('cancel-btn');
@@ -110,6 +130,6 @@
         });
 
     </script>
-
+    {% endif %}
     </body>
     </html>

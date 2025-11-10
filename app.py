@@ -10,6 +10,7 @@ import os
 from db import get_connect
 from auth import auth_blueprint
 from user_profile.routes import profile_bp
+from professor.routes import professor_bp
 
 load_dotenv()
 
@@ -17,11 +18,29 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 app.register_blueprint(auth_blueprint, url_prefix="/auth")
 app.register_blueprint(profile_bp, url_prefix="/user")
+app.register_blueprint(professor_bp, url_prefix="/teacher")
 
 @app.route('/')
 def main():
+    con = get_connect()
+    cur = con.cursor()
+    user_id = session.get("user_id")
+
+    role = session.get("role")
+    if role == "aluno":
+        table = "user_profile"
+        id_column = "user_id"
+    else:
+        table = "teacher_profile"
+        id_column = "teacher_id"
+
+    profile = cur.execute(
+        f"SELECT * FROM {table} WHERE {id_column} = ?",
+        (user_id,)
+    ).fetchone()
+
     username = session.get("username")
-    return render_template("main.html", username=username, role=session.get("role"))
+    return render_template("main.html", username=username, role=session.get("role"), profile=profile)
 
 @app.route("/about_us")
 def about_us():

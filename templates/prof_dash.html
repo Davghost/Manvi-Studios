@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Área do professor</title>
+</head>
+<body>
+   <!--
+   9°ano[..., ..., ...]
+   1°ano[..., ..., ...]
+   2°ano[..., ..., ...]
+   3°ano[..., ..., ...]
+   -->
+   <h1>Seus alunos: </h1>
+   {% for serie, alunos in grupos.items() %}
+   <h2>{{serie}}</h2>
+   {% if alunos %}
+   <ul>
+      {% for nome in alunos %}
+      <a href="{{url_for('profile.show_profile', role='aluno', user_id=nome.user_id)}}">
+         <li>{{nome.name}}</li>
+      </a>
+      {% endfor %}
+   </ul>
+   {% else %}
+   <ul>
+      <li>Sem alunos</li>
+   </ul>
+   {% endif %}
+   {% endfor %}
+</body>
+</html>
