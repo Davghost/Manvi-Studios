@@ -18,10 +18,14 @@
 
 <body>
     <nav class="navbar">
-        <a href="{{url_for('static', filename='images/logo.png')}}" class="logo">Manvi</a>
+        <a href="{{ url_for('main') }}">
+        <img src="{{ url_for('static', filename='images/minilogo.png') }}" alt="Manvi Studios Hat" class="logo">
+        </a>
+        <img src="{{ url_for('static', filename='images/manvistudios.png') }}" alt="Manvi Studios" class="logotext">
         <ul class="nav-links">
                 <li><a href="{{url_for('main')}}">Início</a></li> 
-                <li><a href="{{url_for('about_us')}}">Sobre Nós</a></li>
+                <li><a href="{{url_for('about_us')}}">Sobre</a></li>
+                <li><a href="{{ url_for('auth.auth') }}">Cadastrar/login</a></li>
                 <li><a href="{{url_for('oftenquestions')}}">FAQs</a></li>
         </ul>
     </nav>
@@ -59,12 +63,12 @@
             <a href="https://www.linkedin.com/feed/?trk=onboarding-landing"><i class="fab fa-linkedin-in"></i></a>
             <a href="https://x.com/Yunadevkxz"><i class="fa-brands fa-x-twitter"></i></a>
         </div>
-
+        
         <div class="social-links-dl">
             <a href="http://github.com/Davghost"><i class="fa-brands fa-github"></i></a>
             <a href="mailto:davghost41@gmail.com"><i class="fa-solid fa-envelope"></i></a>
             <a href="https://www.instagram.com/davi_lima239/"><i class="fa-brands fa-instagram"></i></a>
-
+        
 
         </div>
     </section>

@@ -30,23 +30,25 @@
   <header>
     
      <nav class="navbar">
+          <a href="{{ url_for('main') }}">
           <img src="{{ url_for('static', filename='images/minilogo.png') }}" alt="Manvi Studios Hat" class="logo">
+          </a>
           <img src="{{ url_for('static', filename='images/manvistudios.png') }}" alt="Manvi Studios" class="logotext">
             <ul class="menu">
             <li><a href="{{ url_for('main') }}">Início</a></li>
             <li><a href="{{ url_for('about_us') }}">Sobre</a></li>
             {% if not session.get("user_id") %}
-            <li><a href="{{ url_for('auth.auth') }}">Cadastrar/Login</a></li>
+            <li><a href="{{ url_for('auth.auth') }}">Cadastrar/login</a></li>
             {% endif %}
             <li><a href="{{ url_for('oftenquestions') }}">FAQs</a></li>
             {% if session.get("user_id") %}
             <li>
-              <a href="{{ url_for('profile.view_profile') }}">
-                {% if profile.profile_picture %}
+            <a href="{{url_for('profile.view_profile')}}">
+              {% if profile.profile_picture %}
                 <img src="{{ url_for('static', filename='profile_pics/' ~ profile['profile_picture']) }}" alt="Profile Picture" width="25px" height="25px">
-                {% endif %}
-                Perfil
-              </a>
+              {% endif %}
+              Perfil
+            </a>
             </li>
             {% endif %}
             </ul>
@@ -72,14 +74,21 @@
       {% if session.get("role") == "aluno" %}
       <a href="{{url_for('exam', exam_id=1)}}" class="btn-secondary">Estude Aqui</a>
       {% elif session.get("role") == "professor" %}
-      <a href="{{url_for('professor.dashboard')}}" class="btn-secondary">Minha área</a>
+       <a href="{{url_for('professor.dashboard')}}" class="btn-secondary">Minha área</a>
+      {% else %}
+       <a href="{{url_for('auth.auth')}}" class="btn-secondary">Cadastrar/login</a>
       {% endif %}
+
     </div>
     </div>
+
 
   </section>
 
-
+  
+  <div class="glow-line">
+      <h2></h2>
+    </div>
 
 <div class="white-page">
 

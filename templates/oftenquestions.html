@@ -21,8 +21,10 @@
 <body>
 
     <nav class="navbar">
+        <a href="{{ url_for('main') }}">
         <img src="{{ url_for('static', filename='images/minilogo.png') }}" alt="Manvi Studios Hat" class="logo">
-        <img src="{{ url_for('static', filename='images/manvistudios.png') }}" alt="Manvi Studios" class="logotext">
+        </a>
+        <img src="{{ url_for('static', filename='images/manvistudiosdarker.png') }}" alt="Manvi Studios" class="logotext">
         <ul class="nav-links">
             <li><a href="{{ url_for('main') }}">Início</a></li>
             <li><a href="{{ url_for('about_us') }}">Sobre Nós</a></li>

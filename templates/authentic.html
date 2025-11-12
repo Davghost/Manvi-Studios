@@ -1,92 +1,177 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área de autentificação</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/authentic.css')}}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área de autentificação</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='css/authentic.css')}}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 
 <body>
 
-<header>
+   <nav class="navbar">
+        <a href="{{ url_for('main') }}">
+        <img src="{{ url_for('static', filename='images/minilogo.png') }}" alt="Manvi Studios Hat" class="logo">
+        </a>
+        <img src="{{ url_for('static', filename='images/manvistudiosdarker.png') }}" alt="Manvi Studios" class="logotext">
+        
+        <ul class="nav-links">
+            <li><a href="{{ url_for('main') }}">Início</a></li>
+            <li><a href="{{ url_for('about_us') }}">Sobre Nós</a></li>
+            <li><a href="{{ url_for('auth.auth') }}">Autentificação</a></li>
+            <li><a href="{{ url_for('oftenquestions') }}">FAQs</a></li>
+        </ul>
+    </nav>
+
+    
+  <header>
     <div class="head-aw"></div>
-</header>
+  </header>
 
-<main>
-    <div class="auth-container">
-        <div class="tabs">
-            <button onclick="showForm('login-professor')">Login professor</button>
-            <button onclick="showForm('cadastro-professor')">Cadastro professor</button>
-            <button onclick="showForm('login-aluno')">Login aluno</button>
-            <button onclick="showForm('cadastro-aluno')">Cadastro aluno</button>
+  <main>
+
+    <div class="main-wrapper">
+ 
+  <div class="welcome-box">
+  <h1 class="welcome-title"><span id="typed-text"></span><span class="cursor">|</span></h1>
+  <h2 class="welcome-subtitle">Conectamos professores, alunos, e empresas com tecnologia e aprendizado.</h2>
+  </div>
+
+
+
+
+    <div class="auth-container glow-line">
+      <div class="tabs">
+        <button onclick="showForm('login-professor')">Login professor</button>
+        <button onclick="showForm('cadastro-professor')">Cadastro professor</button>
+        <button onclick="showForm('login-aluno')">Login aluno</button>
+        <button onclick="showForm('cadastro-aluno')">Cadastro aluno</button>
+      </div>
+
+      <!-- Formulários -->
+      <form method="POST" action="{{url_for('auth.auth')}}" id="login-professor" class="form-section" style="display:none;">
+        <input type="hidden" name="form_type" value="login-professor">
+        <h2>Login Professor</h2>
+        <input type="text" name="username" placeholder="Usuário">
+        <div class="password-container">
+          <input type="password" name="password" placeholder="Senha" id="password1">
+          <i class="fa-solid fa-eye" onclick="togglePassword('password1')"></i>
         </div>
+        <button type="submit">Entrar</button>
+      </form>
 
-        <form method="POST" action="{{url_for('auth.auth')}}" id="login-professor" class="form-section" style="display:none;">
-            <input type="hidden" name="form_type" value="login-professor">
-            <h2>Login Professor</h2>
-            <input type="text" name="username" placeholder="Usuário">
-            <input type="password" name="password" placeholder="Senha">
-            <button type="submit">Entrar</button>
-        </form>
+      <form method="POST" action="{{url_for('auth.auth')}}" id="cadastro-professor" class="form-section" style="display:none;">
+        <input type="hidden" name="form_type" value="cadastro-professor">
+        <h2>Cadastro Professor</h2>
+        <input type="text" name="username" placeholder="Usuário">
+        <input type="email" name="email" placeholder="Email">
+        <div class="password-container">
+          <input type="password" name="password" placeholder="Senha" id="password2">
+          <i class="fa-solid fa-eye" onclick="togglePassword('password2')"></i>
+        </div>
+        <button type="submit">Cadastrar</button>
+      </form>
 
-        <form method="POST" action="{{url_for('auth.auth')}}" id="cadastro-professor" class="form-section" style="display:none;">
-            <input type="hidden" name="form_type" value="cadastro-professor">
-            <h2>Cadastro Professor</h2>
-            <input type="text" name="username" placeholder="Usuário">
-            <input type="email" name="email" placeholder="Email">
-            <input type="password" name="password" placeholder="Senha">
-            <button type="submit">Cadastrar</button>
-        </form>
+      <form method="POST" action="{{url_for('auth.auth')}}" id="login-aluno" class="form-section" style="display:none;">
+        <input type="hidden" name="form_type" value="login-aluno">
+        <h2>Login Aluno</h2>
+        <input type="text" name="username" placeholder="Usuário">
+        <div class="password-container">
+          <input type="password" name="password" placeholder="Senha" id="password3">
+          <i class="fa-solid fa-eye" onclick="togglePassword('password3')"></i>
+        </div>
+        <button type="submit">Entrar</button>
+      </form>
 
-        <form method="POST" action="{{url_for('auth.auth')}}" id="login-aluno" class="form-section" style="display:none;">
-            <input type="hidden" name="form_type" value="login-aluno">
-            <h2>Login Aluno</h2>
-            <input type="text" name="username" placeholder="Usuário">
-            <input type="password" name="password" placeholder="Senha">
-            <button type="submit">Entrar</button>
-        </form>
-
-        <form method="POST" action="{{url_for('auth.auth')}}" id="cadastro-aluno" class="form-section" style="display:none;">
-            <input type="hidden" name="form_type" value="cadastro-aluno">
-            <h2>Cadastro Aluno</h2>
-            <input type="text" name="username" placeholder="Usuário">
-            <input type="email" name="email" placeholder="Email">
-            <input type="password" name="password" placeholder="Senha">
-            <button type="submit">Cadastrar</button>
-        </form>
-
-        <script>
-            function showForm(formId){
-                const forms = document.querySelectorAll('.form-section');
-                forms.forEach(form => form.style.display = 'none');
-                document.getElementById(formId).style.display = 'block';
-            }
-        </script>
+      <form method="POST" action="{{url_for('auth.auth')}}" id="cadastro-aluno" class="form-section" style="display:none;">
+        <input type="hidden" name="form_type" value="cadastro-aluno">
+        <h2>Cadastro Aluno</h2>
+        <input type="text" name="username" placeholder="Usuário">
+        <input type="email" name="email" placeholder="Email">
+        <div class="password-container">
+          <input type="password" name="password" placeholder="Senha" id="password4">
+          <i class="fa-solid fa-eye" onclick="togglePassword('password4')"></i>
+        </div>
+        <button type="submit">Cadastrar</button>
+      </form>
     </div>
-</main>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="serious">
+      <a href="privacy-policy.html">Política de Privacidade</a>
+      <h1>🔭</h1>
+      <a href="terms-of-service.html">Termos de Serviço</a>
+    </div>
+
+    <div class="social-link-general">
+      <a href="mailto:manvistudiosms@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+      <a href="https://www.linkedin.com/in/manvi-studios-23b13b388/"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.instagram.com/manvistudiosms/"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+
+    <p>&copy; 2025 Manvi. Todos os direitos reservados.</p>
+    <div class="footer-glow"></div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    function showForm(formId) {
+      const forms = document.querySelectorAll('.form-section');
+      forms.forEach(form => {
+        form.style.display = 'none';
+        form.classList.remove('active');
+      });
+      const activeForm = document.getElementById(formId);
+      activeForm.style.display = 'block';
+      activeForm.classList.add('active');
+    }
+
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === "password" ? "text" : "password";
+    }
+  </script>
+
+  <script>
+  const text = "Bem-vindo ao Manvi!";
+  const typedTextSpan = document.getElementById("typed-text");
+  let index = 0;
+  let isDeleting = false;
+
+  function typeEffect() {
+    if (!isDeleting) {
+      typedTextSpan.textContent = text.substring(0, index);
+      index++;
+      if (index > text.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, 2000);
+        return;
+      }
+    } else {
+      typedTextSpan.textContent = text.substring(0, index);
+      index--;
+      if (index < 0) {
+        isDeleting = false;
+        setTimeout(typeEffect, 1000);
+        return;
+      }
+    }
+    setTimeout(typeEffect, isDeleting ? 30 : 60);
+  }
+
+  document.addEventListener("DOMContentLoaded", typeEffect);
+</script>
 
 
-    <footer>
+  
 
-        <section id="contact-info">
-            <p>Contato</p>
-            <a href="mailto:manvistudiosms@gmail.com">manvistudiosms@gmail.com</a>
-        </section>
-
-        <div class="social-media">
-                    <h3 id="call-us">Redes Sociais</h3>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="https://www.instagram.com/manvistudiosms"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/in/manvi-studios-23b13b388/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-        </div>
-
-        <section id="copyright">
-            <p>&copy; 2025 Manvi Studios. Todos os direitos reservados.</p>
-        </section>
-
-    </footer>
+  
 </body>
 </html>

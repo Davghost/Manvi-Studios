@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify
 from db import get_connect
 from decorators import login_required
 from .utils import save_profile_picture
@@ -29,9 +29,9 @@ def show_profile(role, user_id):
     cur.close()
     con.close()
 
-    editable = (session.get("user_id") == user_id)
+    #editable = (session.get("user_id") == user_id)
 
-    return render_template("user_profile.html", profile=profile, name_sch=name_sch, editable=editable)
+    return render_template("user_profile.html", profile=profile, name_sch=name_sch, editable=False)
 
 @profile_bp.route("/my_profile", methods=["GET", "POST"])
 @login_required

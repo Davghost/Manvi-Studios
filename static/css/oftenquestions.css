@@ -20,7 +20,7 @@
     --dark-bg: #0a0a0a;
     --darker-bg: #050505;
     --accent: #2e53cc;
-    --accent-glow: rgba(107, 46, 204, 0.5);
+    --accent-glow: rgba(141, 82, 237, 0.5);
     --text: #ffffff;
 }
 
@@ -165,8 +165,6 @@ html, body {
     display: flex; 
     justify-content: space-between;
     align-items: center;
-    background: #0b031c;
-    backdrop-filter: blur(10px);
     z-index: 1000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
@@ -197,7 +195,7 @@ html, body {
 }
 
 .nav-links a {
-    color: var(--text);
+    color: #0b031c;
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -245,8 +243,8 @@ html, body {
 .hero-bg { 
   position: absolute;
   margin-bottom: 20px;
-  z-index: -1; /* Fica por baixo */
-  top: 60%;
+  z-index: 1; /* Fica por baixo */
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); /* centraliza */
   width: 80%; /* aumenta o tamanho */

@@ -95,6 +95,7 @@ def exam_result(exam_id):
 @login_required
 @aluno_required
 def submit_result():
+    user_id = session.get("user_id")
     data = request.form
     respostas = {}
     exam_id = data.get("exam_id")
@@ -114,17 +115,15 @@ def submit_result():
         resp_user = respostas.get(f"q{resp['id']}")
         if resp_user == resp["correct_option"]:
             qntd_acertos += 1
-    
-    cur.execute(
-        "INSERT INTO user_result (exam_id, correct, total) VALUES (?, ?, ?)",
-        (exam_id, qntd_acertos, len(resp_right))
-    )
+
+    last_submission = cur.execute("SELECT MAX(submission_exam_id) FROM user_answer WHERE user_id = ? AND exam_id = ?", (user_id, exam_id)).fetchone()[0] or 0
+    new_submission = last_submission + 1
 
     for key, selected_option in respostas.items():
         question_id = int(key[1:])
         cur.execute(
-            "INSERT INTO user_answer(user_id, exam_id, question_id, selected_option) VALUES (?, ?, ?, ?)",
-            (session["user_id"], exam_id, question_id, selected_option)
+            "INSERT INTO user_answer(user_id, exam_id, question_id, selected_option, submission_exam_id) VALUES (?, ?, ?, ?, ?)",
+            (session["user_id"], exam_id, question_id, selected_option, new_submission)
         )
 
     con.commit()

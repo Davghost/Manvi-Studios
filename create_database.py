@@ -27,17 +27,6 @@ CREATE TABLE IF NOT EXISTS question(
 """)
 
 cur.execute("""
-CREATE TABLE IF NOT EXISTS user_result(
-   id INTEGER PRIMARY KEY,
-   exam_id INTEGER NOT NULL,
-   correct INTEGER NOT NULL,
-   total INTEGER NOT NULL,
-   date DATETIME DEFAULT CURRENT_TIMESTAMP,
-   FOREIGN KEY (exam_id) REFERENCES exam (id)
-   );
-""")
-
-cur.execute("""
 CREATE TABLE IF NOT EXISTS users(
    id INTEGER PRIMARY KEY,
    username TEXT NOT NULL UNIQUE,
@@ -56,6 +45,7 @@ CREATE TABLE IF NOT EXISTS user_answer(
    question_id INTEGER NOT NULL,
    selected_option TEXT NOT NULL CHECK(selected_option IN ('A', 'B', 'C', 'D')),
    answered_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+   submission_exam_id INTEGER,
    FOREIGN KEY (user_id) REFERENCES users (id),
    FOREIGN KEY (exam_id) REFERENCES exam (id),
    FOREIGN KEY (question_id) REFERENCES question(id)
