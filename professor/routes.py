@@ -36,3 +36,50 @@ def dashboard():
             grupos[serie].append({"user_id": user_id, "name": nome})
       
       return render_template("prof_dash.html", grupos=grupos)
+
+@professor_bp.route("/createExam", methods=["GET", "POST"])
+def createExam():
+   if request.method == "GET":
+      return render_template("prof_exam_perso.html")
+      
+   title = request.form.get("nomeProva")
+   description = request.form.get("descricaoProva")
+
+   con = get_connect()
+   cur = con.cursor()
+
+   cur.execute("""
+       INSERT INTO exam (title, description)
+       VALUES (?, ?)
+   """, (title, description))
+
+   exam_id = cur.lastrowid
+
+   questoes = {}
+   for key in request.form:
+       if key.startswith("questoes"):
+
+           index = key.split("[")[1].split("]")[0]
+           campo = key.split("[")[2].replace("]", "")
+           if index not in questoes:
+               questoes[index] = {}
+           questoes[index][campo] = request.form[key]
+
+   for q in questoes.values():
+       cur.execute("""
+           INSERT INTO question (exam_id, statement, opt_a, opt_b, opt_c, opt_d, correct_option)
+           VALUES (?, ?, ?, ?, ?, ?, ?)
+       """, (
+           exam_id,
+           q["enunciado"],
+           q["A"],
+           q["B"],
+           q["C"],
+           q["D"],
+           q["correta"]
+       ))
+
+   con.commit()
+   cur.close()
+   con.close()
+   return "Prova cadastrada com sucesso!"

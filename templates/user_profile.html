@@ -1,135 +1,251 @@
-    <!DOCTYPE html>
-    <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <title>Perfil do Usuário</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-    <div class="profile-container">
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil do Usuário</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
 
-        <!-- CONTAINER LATERAL COM LINKS -->
-        <aside class="left-container">
-            <nav>
-                <ul>
-                    <li><a href="{{ url_for('main') }}">Home</a></li>
-                    <li><a href="{{ url_for('profile.view_profile') }}">Meu Perfil</a></li>
-                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-                    {% if session['role'] == 'professor' %}
-                    <li><a href="{{url_for('professor.dashboard')}}">Minha área</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
-        </aside>
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>Menu</h2>
 
-        <!-- CONTAINER PRINCIPAL -->
-        <main class="right-container">
+  <a href="{{ url_for('main') }}"><i class="fa-solid fa-house"></i> Dashboard</a>
+  <a href="{{ url_for('oftenquestions') }}"><i class="fa-regular fa-bell"></i> Feed</a>
+  <a href="{{ url_for('main') }}"><i class="fa-solid fa-comment"></i> Conversas</a>
+  <a href="{{ url_for('profile.view_profile') }}"><i class="fa-regular fa-user"></i> Meu Perfil</a>
+  <a href="{{ url_for('auth.logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+  {% if session['role'] == 'professor' %}
+  <a href="{{ url_for('professor.dashboard') }}"><i class="fa-solid fa-chalkboard-user"></i> Minha área</a>
+  {% endif %}
 
-            <!-- BANNER -->
-            <div class="banner">
-                <h2>{{ profile.name or 'Usuário' }}</h2>
-            </div>
+  <div class="user-below">
+    <a href="{{ url_for('profile.view_profile') }}" class="user-sidebelow">
+      {% if profile.profile_picture %}
+      <img src="{{ url_for('static', filename='profile_pics/' ~ profile['profile_picture']) }}" 
+           alt="Avatar" class="user-avatar">
+      {% endif %}
+    </a>
+  </div>
+</div>
 
-            <!-- FOTO DE PERFIL -->
-            {% if profile.profile_picture %}
-            <div class="profile-picture">
-                <img src="{{ url_for('static', filename='profile_pics/' ~ profile['profile_picture']) }}" 
-                    alt="Profile Picture">
-            </div>
-            {% endif %}
+<!-- BOTÃO MENU -->
+<button class="menu-btn" onclick="toggleSidebar()">
+  <span><i class="fa-solid fa-bars"></i></span>
+</button>
 
-            <!-- MODO DE EXIBIÇÃO -->
-            <section class="under-container" id="view-mode">
-                <p><strong>Nome completo:</strong> {{ profile.name or '—' }}</p>
-                <p><strong>Código Inep da Escola:</strong> {{ profile.institution or '—' }}</p>
-                <p><strong>Nome da escola: </strong> {{ name_sch.nome or '—' }} </p>
-                {% if session['role']=='aluno' %}
-                <p><strong>Série escolar: </strong> {{profile.serie or '—' }}</p>
-                {% endif %}
-                <p><strong>Data de Nascimento:</strong> {{ profile.birth_date or '—' }}</p>
-                <p><strong>Bio:</strong></p>
-                <textarea readonly>{{ profile.bio or '' }}</textarea>
-                <p><strong>País:</strong> {{ profile.country or '—' }}</p>
-                <p><strong>Estado:</strong> {{ name_sch.nome_uf or '—' }}</p>
-                <p><strong>Cidade:</strong> {{ name_sch.municipio or '—' }}</p>
-                {% if editable %}
-                <button id="edit-btn">Editar Perfil</button>
-                {% endif %}
-            </section>
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-            <!-- FORMULÁRIO DE EDIÇÃO -->
-            <section id="edit-container" class="hidden">
-                {% if editable %}
-                <form id="edit-form" method="POST" action="{{ url_for('profile.view_profile') }}" enctype="multipart/form-data">
-                    
-                    <div class="form-column">
-                        <label>Nome Completo:</label>
-                        <input type="text" name="name" value="{{ profile.name }}">
+<!-- CONTEÚDO PRINCIPAL -->
+<main class="right-container" id="mainContent">
 
-                        <label>Código Inep da escola: </label>
-                        <input type="text" name="institution" value="{{ profile.institution }}">
-
-                        <label>Data de Nascimento:</label>
-                        <input type="date" name="birth_date" value="{{ profile.birth_date }}">                     
-
-                        <label>Bio:</label>
-                        <textarea name="bio" rows="4">{{ profile.bio }}</textarea>
-                    </div>
-
-                    <div class="form-column">
-                        {% if session['role'] == 'aluno' %}
-                        <label for="serie">Sua série escolar:</label>
-                        <select id="series" name="series">
-                          <option value="9°Ano">9°Ano</option>
-                          <option value="1°Ano EM">1°Ano EM</option>
-                          <option value="2°Ano EM">2°Ano EM</option>
-                          <option value="3°Ano EM">3°Ano EM</option>
-                        </select>
-                        {% endif %}
-
-                        <label>País:</label>
-                        <input type="text" name="country" value="{{ profile.country }}">
-
-                        <label>Estado:</label>
-                        <input type="text" name="state" value="{{ name_sch.nome_uf }}">
-
-                        <label>Cidade:</label>
-                        <input type="text" name="city" value="{{ name_sch.municipio }}">
-
-                        <label>Foto de Perfil:</label>
-                        <input type="file" name="profile_picture">
-                    </div>
-
-                    <div class="form-buttons">
-                        <button type="submit">Salvar</button>
-                        <button type="button" id="cancel-btn">Cancelar</button>
-                    </div>
-
-                </form>
-                {% endif %}
-            </section>
-
-        </main>
+    <!-- BANNER -->
+    <div class="banner">
+        <h2>{{ profile.name or 'Usuário' }}</h2>
     </div>
-    {% if editable %}
-    <script>
-        const editBtn = document.getElementById('edit-btn');
-        const cancelBtn = document.getElementById('cancel-btn');
-        const viewMode = document.getElementById('view-mode');
-        const editContainer = document.getElementById('edit-container');
-            
-        editBtn.addEventListener('click', () => {
-            viewMode.classList.add('hidden');    // esconde view
-            editContainer.classList.remove('hidden'); // mostra formulário
-        });
-        
-        cancelBtn.addEventListener('click', () => {
-            viewMode.classList.remove('hidden'); // mostra view
-            editContainer.classList.add('hidden'); // esconde formulário
-        });
 
-    </script>
+    <!-- FOTO DE PERFIL -->
+    {% if profile.profile_picture %}
+    <div class="profile-picture">
+        <img src="{{ url_for('static', filename='profile_pics/' ~ profile['profile_picture']) }}" 
+             alt="Profile Picture">
+    </div>
+
+    <p class="profile-name">{{ profile.name or 'Usuário' }}</p>
     {% endif %}
-    </body>
-    </html>
+
+    <!-- MODO DE EXIBIÇÃO -->
+    <section class="under-container" id="view-mode">
+        <p><strong>Nome completo:</strong> {{ profile.name or '—' }}</p>
+        <p><strong>Código Inep da Escola:</strong> {{ profile.institution or '—' }}</p>
+        <p><strong>Nome da escola: </strong> {{ name_sch.nome or '—' }} </p>
+        {% if session['role']=='aluno' %}
+        <p><strong>Série escolar: </strong> {{profile.serie or '—' }}</p>
+        {% endif %}
+        <p><strong>Data de Nascimento:</strong> {{ profile.birth_date or '—' }}</p>
+        <p><strong>Bio:</strong></p>
+        <textarea readonly>{{ profile.bio or '' }}</textarea>
+        <p><strong>País:</strong> {{ profile.country or '—' }}</p>
+        <p><strong>Estado:</strong> {{ name_sch.nome_uf or '—' }}</p>
+        <p><strong>Cidade:</strong> {{ name_sch.municipio or '—' }}</p>
+        {% if editable %}
+        <button id="edit-btn">Editar Perfil</button>
+        {% endif %}
+    </section>
+
+    <!-- FORMULÁRIO DE EDIÇÃO -->
+    <section id="edit-container" class="hidden">
+        {% if editable %}
+        <form id="edit-form" method="POST" action="{{ url_for('profile.view_profile') }}" enctype="multipart/form-data">
+            
+            <div class="form-column">
+                <label>Nome Completo:</label>
+                <input type="text" name="name" value="{{ profile.name }}">
+
+                <label>Código Inep da escola: </label>
+                <input type="text" name="institution" value="{{ profile.institution }}">
+
+                <label>Data de Nascimento:</label>
+                <input type="date" name="birth_date" value="{{ profile.birth_date }}">                     
+
+                <label>Bio:</label>
+                <textarea name="bio" rows="4">{{ profile.bio }}</textarea>
+            </div>
+
+            <div class="form-column">
+                {% if session['role'] == 'aluno' %}
+                <label for="serie">Sua série escolar:</label>
+                <select id="series" name="series">
+                  <option value="9°Ano">9°Ano</option>
+                  <option value="1°Ano EM">1°Ano EM</option>
+                  <option value="2°Ano EM">2°Ano EM</option>
+                  <option value="3°Ano EM">3°Ano EM</option>
+                </select>
+                {% endif %}
+
+                <label>País:</label>
+                <input type="text" name="country" value="{{ profile.country }}">
+
+                <label>Estado:</label>
+                <input type="text" name="state" value="{{ name_sch.nome_uf }}">
+
+                <label>Cidade:</label>
+                <input type="text" name="city" value="{{ name_sch.municipio }}">
+
+                <label>Foto de Perfil:</label>
+                <input type="file" name="profile_picture" id="profilePictureInput">
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit">Salvar</button>
+                <button type="button" id="cancel-btn">Cancelar</button>
+            </div>
+
+        </form>
+        {% endif %}
+    </section>
+
+</main>
+
+
+<script>
+function toggleSidebar() {
+   const sidebar = document.querySelector('.sidebar');
+   const overlay = document.getElementById('overlay');
+   const opened = sidebar.classList.toggle('open');
+   overlay.classList.toggle('show', opened);
+}
+
+{% if editable %}
+const editBtn = document.getElementById('edit-btn');
+const cancelBtn = document.getElementById('cancel-btn');
+const viewMode = document.getElementById('view-mode');
+const editContainer = document.getElementById('edit-container');
+
+if (editBtn && cancelBtn && viewMode && editContainer) {
+  editBtn.addEventListener('click', () => {
+      viewMode.classList.add('hidden');
+      editContainer.classList.remove('hidden');
+  });
+
+  cancelBtn.addEventListener('click', () => {
+      viewMode.classList.remove('hidden');
+      editContainer.classList.add('hidden');
+  });
+}
+{% endif %}
+
+/* Modal estilo Discord (só funciona se os elementos existirem no HTML) */
+const modal = document.getElementById("avatarModal");
+if (modal) {
+  const btn = document.getElementById("editAvatarBtn");
+  const closeBtn = modal.querySelector(".close");
+  const img = document.getElementById("avatarEditable");
+  const zoomControl = document.getElementById("zoomControl");
+
+  let rotation = 0;
+  let scale = 1;
+  let isDragging = false;
+  let startX, startY, initialLeft, initialTop;
+
+  if (btn) btn.onclick = () => modal.style.display = "block";
+  if (closeBtn) closeBtn.onclick = () => modal.style.display = "none";
+
+  const rotateLeft = document.getElementById("rotateLeft");
+  const rotateRight = document.getElementById("rotateRight");
+  const saveAvatar = document.getElementById("saveAvatar");
+
+  if (rotateLeft && img) rotateLeft.onclick = () => {
+    rotation -= 90;
+    img.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
+  };
+
+  if (rotateRight && img) rotateRight.onclick = () => {
+    rotation += 90;
+    img.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
+  };
+
+  if (zoomControl && img) {
+    zoomControl.oninput = () => {
+      scale = zoomControl.value;
+      img.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
+    };
+  }
+
+  if (img) {
+    img.onmousedown = (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      initialLeft = parseInt(img.style.left || 0);
+      initialTop = parseInt(img.style.top || 0);
+    };
+
+    document.onmouseup = () => isDragging = false;
+
+    document.onmousemove = (e) => {
+      if (!isDragging) return;
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      img.style.left = `${initialLeft + dx}px`;
+      img.style.top = `${initialTop + dy}px`;
+      img.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
+    };
+  }
+
+  if (saveAvatar) saveAvatar.onclick = () => {
+    modal.style.display = "none";
+  };
+}
+
+/* Abrir modal ao escolher arquivo, se o modal existir */
+const fileInput = document.getElementById("profilePictureInput");
+const imgInModal = document.getElementById("avatarEditable");
+
+if (fileInput && modal && imgInModal) {
+  fileInput.addEventListener("change", () => {
+    if (fileInput.files && fileInput.files.length > 0) {
+
+      modal.style.display = "block";
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        imgInModal.src = e.target.result;
+      };
+
+      reader.readAsDataURL(fileInput.files[0]);
+    }
+  });
+}
+</script>
+
+
+
+</body>
+</html>

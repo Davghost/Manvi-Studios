@@ -3,113 +3,185 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>{% block title %}{{exam['title']}}{% endblock %}</title>
-   <link rel="stylesheet" href="{{url_for('static', filename='css/exam.css')}}">
+   <title>{% block title %}{{ exam['title'] }}{% endblock %}</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/exam.css') }}">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </head>
 <body>
 
-<header>
-   <div class="head-exam">
-      <h2>Manvi Studios</h2>
-      <a href="{{url_for('profile.view_profile')}}">
-         <img src="{{ url_for('static', filename='images/post_amanda.jpeg') }}" alt="Imagem do Usuário">
-         <span>Usuário</span>
-      </a>
-   </div>
-</header>
-<main>
-   <div class="main-second">
-   <div class="container-exam">
-      <h2>{% block exam_title %}{{ exam['title'] }}{% endblock %}</h2>
-      <p>{% block exam_description %}{{ exam['description'] }}{% endblock %}</p>
+   <div class="sidebar">
+     <h2>Menu</h2>
 
-      {% block exam_content %}
-      <form id="examForm" action="{{ url_for('submit_result') }}" method="POST">
-      <input type="hidden" name="exam_id" value="{{ exam['id'] }}">
-      {% if submit == True %}
-      {% for q in questions %}
-         {% set qid = q['id'] %}
-         {% set user_answer = answers[qid] if qid in answers else None %}
-                  
-            <div class="questions">
-                <p><strong>{{ loop.index }}. {{ q['statement'] }}</strong></p>
-         
-                <label class="{% if correct_options[qid] == 'A' %}correct{% elif user_answer == 'A' and user_answer != correct_options[qid] %}wrong{% endif %}">
+     <a href="{{ url_for('main') }}"><i class="fa-solid fa-house"></i> Dashboard</a>
+     <a href="{{ url_for('main') }}"><i class="fa-regular fa-clipboard"></i> Provas</a>
+     <a href="{{ url_for('main') }}"><i class="fa-solid fa-magnifying-glass"></i> Ferramentas Avançadas</a>
+     <a href="{{ url_for('profile.view_profile') }}"><i class="fa-regular fa-user"></i> Perfil</a> 
+     <a href="{{ url_for('oftenquestions') }}"><i class="fa-regular fa-bell"></i> Feed</a>
+     <a href="{{ url_for('main') }}"><i class="fa-solid fa-comment"></i> Conversas</a>
+   
+     <div class="user-below">
+      <!--Muda a rota para view_profile-->
+   <a href="{{ url_for('profile.view_profile', role=session['role'], user_id=session['user_id']) }}">
+    {% if profile.profile_picture %}
+      <img src="{{ url_for('static', filename='profile_pics/' ~ profile['profile_picture']) }}" alt="Avatar" class="user-sidebelow">
+    {% else %}
+      <img src="{{ url_for('static', filename='images/default_avatar.jpg') }}" alt="Avatar" class="user-sidebelow">
+    {% endif %}
+  </a>
+    </div>
+
+</div>
+
+   </div>
+
+   </div>
+
+   <button class="menu-btn" onclick="toggleSidebar()">
+      <span><i class="fa-solid fa-bars"></i></span>
+   </button>
+
+    
+   <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<header class="topbar">
+   
+
+   <div class="brand">
+      <a href="{{ url_for('main') }}">
+      <img src="{{ url_for('static', filename='images/minilogo.png') }}" class="brand-logo">
+      </a>
+      <img src="{{ url_for('static', filename='images/manvistudiosdarker.png') }}" class="brand-name">
+   </div>
+
+      <a href="{{ url_for('profile.view_profile') }}" class="user-box">
+  {% if profile.profile_picture %}
+    <img src="{{ url_for('static', filename='profile_pics/' ~ profile['profile_picture']) }}" alt="Avatar" class="user-avatar">
+  {% else %}
+    <img src="{{ url_for('static', filename='images/default_avatar.jpg') }}" alt="Avatar" class="user-avatar">
+  {% endif %}
+  <span class="user-name">{{ profile['name'] or 'Usuário' }}</span>
+     </a>
+
+
+</header>
+
+
+<main class="main-second" id="mainContent">
+     <div class="container-exam">
+       <h2>{% block exam_title %}{{ exam['title'] }}{% endblock %}</h2>
+       <p>{% block exam_description %}{{ exam['description'] }}{% endblock %}</p>
+
+       {% block exam_content %}
+       <form id="examForm" action="{{ url_for('submit_result') }}" method="POST">
+         <input type="hidden" name="exam_id" value="{{ exam['id'] }}">
+
+         {% if submit == True %}
+            {% for q in questions %}
+               {% set qid = q['id'] %}
+               {% set user_answer = answers[qid] if qid in answers else None %}
+
+               <div class="question-card">
+                  <p><strong>{{ loop.index }}. {{ q['statement'] }}</strong></p>
+
+                  <label class="{% if correct_options[qid] == 'A' %}correct{% elif user_answer == 'A' and user_answer != correct_options[qid] %}wrong{% endif %}">
                     <input type="radio" name="q{{ qid }}" value="A" {% if user_answer == 'A' %}checked{% endif %} disabled>
-                    {{ q.opt_a }}
-                </label><br>
-             
-                <label class="{% if correct_options[qid] == 'B' %}correct{% elif user_answer == 'B' and user_answer != correct_options[qid] %}wrong{% endif %}">
+                    {{ q['opt_a'] }}
+                  </label>
+
+                  <label class="{% if correct_options[qid] == 'B' %}correct{% elif user_answer == 'B' and user_answer != correct_options[qid] %}wrong{% endif %}">
                     <input type="radio" name="q{{ qid }}" value="B" {% if user_answer == 'B' %}checked{% endif %} disabled>
-                    {{ q.opt_b }}
-                </label><br>
-             
-                <label class="{% if correct_options[qid] == 'C' %}correct{% elif user_answer == 'C' and user_answer != correct_options[qid] %}wrong{% endif %}">
+                    {{ q['opt_b'] }}
+                  </label>
+
+                  <label class="{% if correct_options[qid] == 'C' %}correct{% elif user_answer == 'C' and user_answer != correct_options[qid] %}wrong{% endif %}">
                     <input type="radio" name="q{{ qid }}" value="C" {% if user_answer == 'C' %}checked{% endif %} disabled>
-                    {{ q.opt_c }}
-                </label><br>
-             
-                <label class="{% if correct_options[qid] == 'D' %}correct{% elif user_answer == 'D' and user_answer != correct_options[qid] %}wrong{% endif %}">
+                    {{ q['opt_c'] }}
+                  </label>
+
+                  <label class="{% if correct_options[qid] == 'D' %}correct{% elif user_answer == 'D' and user_answer != correct_options[qid] %}wrong{% endif %}">
                     <input type="radio" name="q{{ qid }}" value="D" {% if user_answer == 'D' %}checked{% endif %} disabled>
-                    {{ q.opt_d }}
-                </label><br>
-            </div>
-         {% endfor %}
-      <button type="button" id="exitButton">Confirmar e sair</button>
-               
-      <script>
-      document.getElementById("exitButton").addEventListener("click", () => {
-         Swal.fire({
-            title: "Deseja realmente sair?",
-            text: "Suas respostas já foram registradas.",
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Sim, sair",
-            cancelButtonText: "Cancelar"
-         }).then((result) => {
-            if (result.isConfirmed) {
+                    {{ q['opt_d'] }}
+                  </label>
+               </div>
+            {% endfor %}
+
+            <button type="button" id="exitButton">Confirmar e Sair</button>
+
+            <script>
+            document.getElementById("exitButton").addEventListener("click", () => {
                Swal.fire({
-                  title: "Saindo...",
-                  text: "Redirecionando para a página inicial.",
-                  icon: "success",
-                  showConfirmButton: false,
-                  timer: 1500
+                  title: "Deseja realmente sair?",
+                  text: "Suas respostas já foram registradas.",
+                  icon: "question",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Sim, sair",
+                  cancelButtonText: "Cancelar"
+               }).then((result) => {
+                  if (result.isConfirmed) {
+                     Swal.fire({
+                        title: "Saindo...",
+                        text: "Redirecionando para a página inicial.",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1500
+                     });
+                     setTimeout(() => {
+                        window.location.href = "{{ url_for('main') }}";
+                     }, 1500);
+                  }
                });
-            
-               setTimeout(() => {
-                  window.location.href = "{{ url_for('main') }}";
-               }, 1500);
-            }
-         });
-      });
-      </script>
-      
+            });
+            </script>
 
          {% else %}
-         {% for q in questions %}
-            <div class="questions">
-               <p><strong>{{ loop.index }}. {{ q['statement'] }}</strong></p>
-               <label><input type="radio" name="q{{ q['id'] }}" value="A"> {{ q['opt_a'] }} </label><br>
-               <label><input type="radio" name="q{{ q['id'] }}" value="B"> {{ q['opt_b'] }} </label><br>
-               <label><input type="radio" name="q{{ q['id'] }}" value="C"> {{ q['opt_c'] }}</label><br>
-               <label><input type="radio" name="q{{ q['id'] }}" value="D"> {{ q['opt_d'] }}</label><br>
-            </div>
-         {% endfor %}
-         <button type="submit" id="SubmitExame">Enviar Respostas</button>
+
+            {% for q in questions %}
+               <div class="question-card">
+                  <p><strong>{{ loop.index }}. {{ q['statement'] }}</strong></p>
+
+                  <label class="option"><input type="radio" name="q{{ q['id'] }}" value="A"> {{ q['opt_a'] }}</label>
+                  <label class="option"><input type="radio" name="q{{ q['id'] }}" value="B"> {{ q['opt_b'] }}</label>
+                  <label class="option"><input type="radio" name="q{{ q['id'] }}" value="C"> {{ q['opt_c'] }}</label>
+                  <label class="option"><input type="radio" name="q{{ q['id'] }}" value="D"> {{ q['opt_d'] }}</label>
+               </div>
+            {% endfor %}
+
+            
+            <button type="submit" id="SubmitExame">Enviar Respostas</button>
+            
+
          {% endif %}
-      </form>
-      {% endblock %}
-   </div>
-   </div>
+       </form>
+       {% endblock %}
+
+     </div>
+
+     
+
+     
 </main>
 
-   <footer>
-      {% block footer %}{% endblock %}
-   </footer>
+<footer>
+   {% block footer %}{% endblock %}
+</footer>
 
+<script>
+function toggleSidebar() {
+   
+   const sidebar = document.querySelector('.sidebar');
+   const main = document.getElementById('mainContent');
+   const overlay = document.getElementById('overlay');
+
+  
+   const opened = sidebar.classList.toggle('open');
+   main.classList.toggle('shift', opened);
+   overlay.classList.toggle('show', opened);
+
+
+}
+</script>
 </body>
 </html>

@@ -1,81 +1,409 @@
-html, body {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
-   overflow-x: hidden;
-   font-family: Arial, Helvetica, sans-serif;
+main {
+   position: relative;
+   z-index: 1;
+}  
+
+.navbar {
+    background: #ffffff;
+    box-shadow: 0 4px 18px rgba(120, 70, 255, 0.12);
+    border-bottom: 1px solid rgba(120, 70, 255, 0.10);
+}  
+
+ @font-face {
+  font-family: 'NexaBold';
+  src: url('../Nexa-Heavy.ttf') format('opentype');
 }
 
-header {
-   width: 100%;
-   background-color: lightblue;
-   max-height: 105px;
-   transition: margin-left 0.5s ease, width 0.5s ease;
+@font-face {
+  font-family: 'NexaLight';
+  src: url('../Nexa-ExtraLight.ttf') format('opentype');
+
 }
 
-.head-exam {
+.sidebar {
+   position: fixed;
+   top: 0;
+   left: -100%;
+   width: 280px;
+   height: 100vh;
+   padding: 25px;
+   box-shadow: 0 0 25px rgba(0,0,0,0.08);
+   transition: left 0.35s ease;
+   z-index: 2500; /* em cima da nav e do overlay */
    display: flex;
-   justify-content: space-between;
-   padding: 6px 4vw;
-   align-items: center;
+   flex-direction: column;
+   background: linear-gradient(180deg, #ffffff, #f4f2ff);
+   border-right: 1px solid rgba(120, 70, 255, 0.15);
+   transition: left 0.35s ease-in-out;
+
 }
 
-.head-exam a {
-   display: flex;
-   align-items: center;
-   gap: 8px;
+.sidebar.open {  /* Quando abre */
+   left: 0;
+}
+
+.sidebar h2 {
+   font-size: 22px;
+   margin-bottom: 25px;
+   color: #00344f;
+   font-weight: 700;
+}
+
+.sidebar a {
+   padding: 14px 16px;
+   margin-bottom: 12px;
    text-decoration: none;
-   color: inherit;
+   background: rgba(120, 70, 255, 0.07);
+   color: #2b1f55;
+   border-radius: 10px;
+   font-size: 16px;
+   font-weight: 500;
+   transition: background 0.25s ease, transform 0.2s;
 }
 
-.head-exam img {
-   width: 50px;
-   height: 50px;
-   border-radius: 50%;
-   object-fit: cover;
+
+.sidebar a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.sidebar a i {
+    font-size: 17px;
+    margin-right: 4px; 
+    color: #2b1f55;
+}
+
+
+
+.sidebar a:hover {
+   background: rgba(120, 70, 255, 0.15);
+   transform: translateX(3px);
+}
+
+ .sidebar h2 {
+   transition: margin-top 0.35s ease;
+}
+
+.sidebar.open h2 {
+   margin-top: 5px;
+   margin-left: 60px;
+   font-family: 'NexaBold', sans-serif;
+}
+
+.sidebar-open .brand-logo {
+  margin-left: 500px; /* Margem maior da logo quando a sidebar abre */
+}
+
+
+.user-sidebelow {
+   top: 50px; 
+   object-fit: cover; 
+   display: inline-block;       /* não herda flex dos links da sidebar */
+   text-decoration: none;       /* remove sublinhado */
+   background: none;            /* remove fundo */
+   padding: 0;                  /* remove padding herdado */
+   margin: 0;                   /* remove margin herdada */
+   border-radius: 0;            /* remove borda arredondada herdada */
+   color: inherit;    
+
+}
+
+.user-below {
+   margin-top: auto;  /* empurra para o final da coluna */    
+   padding-top: 20px;
+   padding-bottom: 40px;
+   text-align: center;
+   background: none;    
+}
+
+.user-below img.user-sidebelow {
+  width: 48px;               /* tamanho menor e proporcional */
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #7846ff; /* borda roxa opcional */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: transform 0.25s ease;
+}
+
+.user-below img.user-sidebelow:hover {
+  transform: scale(1.1);
+}
+
+
+
+/* ---------- BOTÃO DO MENU ----------- */
+ .menu-btn {
+   position: fixed;
+   top: 18px;
+   left: 18px;
+   width: 48px;
+   height: 48px;
+   border-radius: 10px;
+   background: #ffffff;
+   border: 1px solid #c7dbea;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 24px;
+   z-index: 3000; /* Em cima de tudo */
+   transition: background 0.25s ease;
+}
+
+.menu-btn:hover {
+   background: #eef6ff;
+}
+
+.menu-btn span {
+   font-size: 22px;
+   color: #003d57;
+}
+
+/* Filtro cinza do overlay  */
+.overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0,0,0,0.4);
+   opacity: 0;
+   pointer-events: none;
+   transition: opacity 0.3s ease;
+   z-index: 1800; /* escurece o fundo mas fica p trás da sidebar */
+}
+
+.overlay.show {
+   opacity: 1;
+   pointer-events: all;
 }
 
 .main-second {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: calc(100vh - 105px);
-    padding: 20px;
-    background-color: rgb(255, 255, 255);
+   transition: margin-left 0.35s ease;
+   padding: 40px 5vw;
+   width: 100%;
 }
 
+.main-second.shift {
+   margin-left: 280px;
+}
+
+/* TEXTO DA PROVA  */
 .container-exam {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 800px;
+   background: #ffffff;
+   border-radius: 12px;
+   padding: 40px;
+   box-shadow: 0 0 20px rgba(0,0,0,0.06);
+}
+
+body {
+   overflow-x: hidden;
+   font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+   font-size: 16px;
+   color: #1c1c1c;
+   background: #f5f6fa;
+}
+
+.question-card {
+    background: #ffffff;
     padding: 20px;
+    margin: 25px auto;
+    width: 90%;
+    max-width: 900px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    line-height: 1.6;
 }
 
-.questions{
-   background-color: rgb(235, 227, 227);
-   font-family: 'Arial Narrow Bold', sans-serif;
-   padding: 20px;
-   border-radius: 16px;
-   margin-bottom: 25px;
+.question-card p {
+    text-align: justify;
 }
 
-.questions label{
+.question-card label {
+    display: block;
+    margin: 8px 0;
+}
+
+
+.head-exam h2 {
+    margin-left: 60px;
+}
+
+
+.container-exam h2 {
+   font-family: "Inter", sans-serif;
+   font-weight: 700;
+   font-size: 28px;
+   color: #1a1a1a;
+   letter-spacing: -0.5px;
+}
+
+.container-exam p {
    font-size: 17px;
-   margin-bottom: 8px;
-   font-weight: bold;
+   color: #333;
 }
 
-.questions p{
-   padding: 10px;
-   margin: 0 0 10px 0;
-   font-size: 19px;
+
+.topbar {
+   position: fixed;    
+   top: 0;
+   left: 0;
+   width: 100%;
+   z-index: 1500; /* em baixo da sidebar, em cima do conteúdo */     
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 14px 26px;
+   background: linear-gradient(90deg, #ffffff, #eef3ff);
+   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+   transition: transform 0.35s ease;
 }
+
+
+
+.brand {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+.brand-logo {
+   width: 60px;
+   object-fit: contain;
+   border-radius: 8px;
+    margin-left: 80px; 
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+
+.brand-logo:hover {
+  transform: scale(1.2) rotate(-30deg);
+  filter: drop-shadow(0 0 10px rgba(145, 114, 255, 0.8));
+}
+
+.brand-name {
+   width: 100px;
+   object-fit: contain;
+   margin-left: 0px; 
+}
+
+.user-box {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   color: #333;
+   text-decoration: none;
+} 
+
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #7846ff;   
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: transform 0.25s ease;
+
+}
+
+
+
+.user-name {
+   font-size: 15px;
+   font-weight: 500;
+   margin-right: 90px;
+}
+
+/* Caixa das questões */
+.question-card {
+   background: #ffffff;
+   padding: 28px;
+   margin: 22px 0;
+   border-radius: 18px;
+   box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+}
+
+.question-card p {
+   font-size: 18px;
+   font-weight: 600;
+   margin-bottom: 18px;
+}
+
+.option {
+   font-size: 16px;
+   padding: 8px 0;
+   display: block;
+}
+
+/* Correção */
 .correct {
-    background-color: #85d888; /* verde claro */
+   background: rgba(0, 199, 90, 0.13);
+   border-radius: 8px;
+   padding: 6px 6px;
 }
 
 .wrong {
-    background-color: #d67c85; /* vermelho claro */
+   background: rgba(255, 55, 80, 0.13);
+   border-radius: 8px;
+   padding: 6px 6px;
+}
+
+
+.exam-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 32px;
+    box-shadow: 0 8px 22px rgba(120, 70, 255, 0.15);
+    transition: all 0.25s ease-in-out;
+    border: 1px solid rgba(120, 70, 255, 0.08);
+}
+
+.exam-card:hover {
+    box-shadow: 0 12px 28px rgba(120, 70, 255, 0.22);
+    transform: translateY(-3px);
+}
+
+/* Enviar Resposta - Botão */
+#SubmitExame {
+  display: inline-block;
+  padding: 12px 28px;
+  background: linear-gradient(90deg, #7846ff, #9a6dff); /* gradiente roxo elegante */
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  z-index: 5; /* acima do conteúdo da prova */
+}
+
+#SubmitExame:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 18px rgba(120, 70, 255, 0.25);
+  background: linear-gradient(90deg, #6a3de6, #8a5cff); /* escurece no hover */
+}
+
+#SubmitExame:active {
+  transform: scale(0.97);
+  box-shadow: 0 3px 10px rgba(120, 70, 255, 0.2);
+}
+
+
+
+#exitButton {
+   display: inline-block;
+   padding: 12px 24px;
+   background: linear-gradient(90deg, #2a0982, hsl(258, 69%, 32%));
+   color: #fff;
+   font-size: 16px;
+   font-weight: 600;
+   border: none;
+   border-radius: 10px;
+   cursor: pointer;
+   transition: transform 0.25s ease, box-shadow 0.25s ease;
+   margin-left: 785px;
 }

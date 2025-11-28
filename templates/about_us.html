@@ -25,8 +25,20 @@
         <ul class="nav-links">
                 <li><a href="{{url_for('main')}}">Início</a></li> 
                 <li><a href="{{url_for('about_us')}}">Sobre</a></li>
+                {% if not session.get("user_id") %}
                 <li><a href="{{ url_for('auth.auth') }}">Cadastrar/login</a></li>
+                {% endif %}
                 <li><a href="{{url_for('oftenquestions')}}">FAQs</a></li>
+                <li>
+                    {% if session.get("user_id") %}
+                    <a href="{{url_for('profile.view_profile')}}">
+                        {% if profile.profile_picture %}
+                        <img src="{{ url_for('static', filename='profile_pics/' ~ profile['profile_picture']) }}" alt="Profile Picture" width="25px" height="25px">
+                        {% endif %}
+                        Perfil
+                    </a>
+                    {%endif%}
+                </li>
         </ul>
     </nav>
 

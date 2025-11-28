@@ -156,7 +156,7 @@ def view_profile():
         cur.close()
         con.close()
 
-        return redirect(url_for("profile.show_profile", role=role, user_id=user_id))
+        return redirect(url_for("profile.view_profile"))
 
     name_sch = None
     if profile and profile["institution"]:

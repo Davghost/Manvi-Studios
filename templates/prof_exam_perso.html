@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Prova Dinâmica</title>
+
+    <style>
+        textarea {
+            width: 100%;
+            min-height: 40px;
+            resize: none;
+            overflow: hidden; /* nunca mostra barras */
+        }
+        .questao {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Criar Prova</h2>
+
+<form id="formProva" action="{{url_for('professor.createExam')}}" method="POST">
+
+    <label><b>Nome da Prova:</b></label>
+    <input type="text" name="nomeProva" required>
+
+    <br><br>
+
+    <label><b>Descrição:</b></label>
+    <textarea name="descricaoProva" required></textarea>
+
+    <br><br>
+
+    <div id="areaQuestoes"></div>
+
+    <button type="button" id="addQuestao">Adicionar Questão</button>
+
+    <br><br>
+
+    <button type="submit">Enviar Prova</button>
+</form>
+
+
+<script>
+    const area = document.getElementById("areaQuestoes");
+    const addBtn = document.getElementById("addQuestao");
+
+    // Modelo de questão SIMPLIFICADO
+    function novaQuestaoHTML(index) {
+        return `
+            <div class="questao">
+                <h3>Questão ${index + 1}</h3>
+
+                <label>Enunciado:</label>
+                <textarea name="questoes[${index}][enunciado]" required></textarea>
+
+                <label>A:</label>
+                <textarea name="questoes[${index}][A]" required></textarea>
+
+                <label>B:</label>
+                <textarea name="questoes[${index}][B]" required></textarea>
+
+                <label>C:</label>
+                <textarea name="questoes[${index}][C]" required></textarea>
+
+                <label>D:</label>
+                <textarea name="questoes[${index}][D]" required></textarea>
+
+                <label>Correta:</label>
+                <select name="questoes[${index}][correta]">
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                    <option>D</option>
+                </select>
+
+                <br><br>
+                <button type="button" class="excluir">Excluir</button>
+            </div>
+        `;
+    }
+
+    // Auto-resize GLOBAL para toda textarea
+    document.addEventListener("input", e => {
+        if (e.target.tagName === "TEXTAREA") {
+            e.target.style.height = "auto";
+            e.target.style.height = e.target.scrollHeight + "px";
+        }
+    });
+
+    // ➕ Adicionar questão
+    addBtn.onclick = () => {
+        const index = area.children.length;
+        area.insertAdjacentHTML("beforeend", novaQuestaoHTML(index));
+        atualizarEventos();
+    };
+
+    // 🔄 Renumera e corrige os names dos inputs
+    function renumerar() {
+        [...area.children].forEach((div, i) => {
+            div.querySelector("h3").textContent = "Questão " + (i + 1);
+
+            // Atualiza todos os name="questoes[x]"
+            div.querySelectorAll("[name]").forEach(el => {
+                const campo = el.name.split("][").pop().replace("]", "");
+                el.name = `questoes[${i}][${campo}]`;
+            });
+        });
+    }
+
+    // Eventos de excluir questão
+    function atualizarEventos() {
+        document.querySelectorAll(".excluir").forEach(btn => {
+            btn.onclick = () => {
+                btn.parentElement.remove();
+                renumerar();
+            };
+        });
+    }
+</script>
+
+</body>
+</html>
