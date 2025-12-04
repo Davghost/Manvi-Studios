@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Histórico de submissões</title>
+</head>
+<body>
+{% for p in prevs_result %}
+      <a href="{{ url_for('exam_result', exam_id=p['exam_id'], submission_exam_id=p['submission_exam_id']) }}">
+        Submissão {{ p['submission_exam_id'] }}
+    </a><br>
+{% endfor %}
+
+</body>
+</html>

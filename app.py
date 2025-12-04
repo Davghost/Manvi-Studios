@@ -223,5 +223,42 @@ def examToStudy():
 
     return render_template("exams_teste.html", exams=exams)
 
+@app.route("/examHistory", methods=["GET", "POST"])
+@login_required
+@aluno_required
+def examHistory():
+    role = session.get("user_id")
+
+    with get_connect() as con:
+        cur = con.cursor()
+        
+        user_id = session["user_id"]
+        role = session.get("role")
+        if role == "aluno":
+            table = "user_profile"
+            id_column = "user_id"
+        else:
+            table = "teacher_profile"
+            id_column = "teacher_id"
+
+        profile = cur.execute(
+            f"SELECT * FROM {table} WHERE {id_column} = ?",
+            (user_id,)
+        ).fetchone()
+
+        exam_prevs = cur.execute("""                
+            SELECT title, description FROM exam
+        """).fetchall()
+
+        prevs_result = cur.execute("""
+            SELECT DISTINCT exam_id, submission_exam_id
+            FROM user_answer
+            WHERE user_id = ?
+            ORDER BY submission_exam_id DESC
+        """, (user_id,)).fetchall()
+
+    return render_template("examHistory.html", exam_prevs=exam_prevs, prevs_result=prevs_result, profile=profile)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
