@@ -163,10 +163,55 @@
 
      
 </main>
+   
+<!-- Calculadora lateral -->
+<div id="calculator" class="calculator">
+  <div class="calc-header">
+    <span>Calculadora</span>
+    <button id="closeCalc"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <input type="text" id="calcDisplay" readonly>
+  <div class="calc-buttons">
+    <button onclick="press('7')">7</button>
+    <button onclick="press('8')">8</button>
+    <button onclick="press('9')">9</button>
+    <button onclick="press('/')">÷</button>
+
+    <button onclick="press('4')">4</button>
+    <button onclick="press('5')">5</button>
+    <button onclick="press('6')">6</button>
+    <button onclick="press('*')">×</button>
+
+    <button onclick="press('1')">1</button>
+    <button onclick="press('2')">2</button>
+    <button onclick="press('3')">3</button>
+    <button onclick="press('-')">−</button>
+
+    <button onclick="press('0')">0</button>
+    <button onclick="press('.')">.</button>
+    <button onclick="calculate()">=</button>
+    <button onclick="press('+')">+</button>
+
+    <button onclick="clearCalc()" class="clear">C</button>
+  </div>
+</div>
+
 
 <footer>
+  <div id="exam-footer">
+  
+  <div id="timer">Tempo: 00:00</div>
+
+  
+  <button id="calcBtn" class="calc-btn">
+    <i class="fa-solid fa-calculator"></i> Calculadora
+  </button>
+  </div>
+
    {% block footer %}{% endblock %}
+
 </footer>
+
 
 <script>
 function toggleSidebar() {
@@ -183,5 +228,47 @@ function toggleSidebar() {
 
 }
 </script>
+
+
+<script>
+// Timer
+let seconds = 0;
+function updateTimer() {
+  seconds++;
+  let min = String(Math.floor(seconds / 60)).padStart(2, '0');
+  let sec = String(seconds % 60).padStart(2, '0');
+  document.getElementById("timer").textContent = `Tempo: ${min}:${sec}`;
+}
+setInterval(updateTimer, 1000);
+
+// Calculadora
+
+const calc = document.getElementById("calculator");
+
+document.getElementById("calcBtn").addEventListener("click", () => {
+  calc.classList.add("open");   // aparece
+});
+
+document.getElementById("closeCalc").addEventListener("click", () => {
+  calc.classList.remove("open"); // volta a ficar invisível
+});
+
+
+function press(val) {
+  document.getElementById("calcDisplay").value += val;
+}
+function calculate() {
+  try {
+    document.getElementById("calcDisplay").value = 
+      eval(document.getElementById("calcDisplay").value);
+  } catch {
+    document.getElementById("calcDisplay").value = "Erro";
+  }
+}
+function clearCalc() {
+  document.getElementById("calcDisplay").value = "";
+}
+</script>
+
 </body>
 </html>

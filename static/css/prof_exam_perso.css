@@ -1,0 +1,165 @@
+/* ---------- BASE GERAL ---------- */
+
+body {
+    font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+    background: #f5f6fa;
+    color: #1c1c1c;
+}
+
+/* Container principal */
+form#formProva {
+    background: #ffffff;
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: 14px;
+    box-shadow: 0 8px 22px rgba(120, 70, 255, 0.15);
+    border: 1px solid rgba(120, 70, 255, 0.08);
+}
+
+/* Título */
+h2 {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    margin-bottom: 25px;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+}
+
+
+/* ---------- INPUTS E TEXTAREAS ---------- */
+
+form label {
+    display: block;
+    font-weight: 600;
+    font-size: 15px;
+    margin: 10px 0 6px;
+    color: #2b1f55;
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 15px;
+    border: 1px solid rgba(120, 70, 255, 0.20);
+    background: #ffffff;
+    transition: all 0.25s ease;
+    outline: none;
+    resize: none;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #7846ff;
+    box-shadow: 0 0 8px rgba(120, 70, 255, 0.28);
+}
+
+
+/* ---------- CARTÃO DE QUESTÃO ---------- */
+
+.questao {
+    background: #ffffff;
+    padding: 26px;
+    margin-top: 28px;
+    border-radius: 18px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+    border: 1px solid rgba(120, 70, 255, 0.08);
+}
+
+.questao h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: #2b1f55;
+}
+
+
+/* ---------- BOTÕES ---------- */
+
+/* Botão principal (Enviar Prova) */
+form button[type="submit"] {
+    padding: 12px 28px;
+    background: linear-gradient(90deg, #7846ff, #9a6dff);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    margin-top: 20px;
+}
+
+form button[type="submit"]:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 18px rgba(120, 70, 255, 0.25);
+}
+
+form button[type="submit"]:active {
+    transform: scale(0.97);
+}
+
+
+/* Botão roxo claro (Adicionar questão) */
+#addQuestao {
+    padding: 10px 22px;
+    background: rgba(120, 70, 255, 0.10);
+    color: #2b1f55;
+    font-weight: 600;
+    border: 1px solid rgba(120, 70, 255, 0.20);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+#addQuestao:hover {
+    background: rgba(120, 70, 255, 0.18);
+    transform: translateY(-1px);
+}
+
+
+/* Botão vermelho de excluir questão */
+.excluir {
+    padding: 8px 16px;
+    background: rgba(255, 55, 80, 0.12);
+    color: #b1001e;
+    border: 1px solid rgba(255, 55, 80, 0.35);
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.25s ease;
+}
+
+.excluir:hover {
+    background: rgba(255, 55, 80, 0.20);
+    transform: scale(1.05);
+}
+
+
+/* responsividade */
+
+@media (max-width: 768px) {
+
+    form#formProva {
+        padding: 25px;
+    }
+
+    .questao {
+        padding: 18px;
+    }
+
+    input, textarea, select {
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+}

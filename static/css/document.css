@@ -1,0 +1,100 @@
+body {
+    font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+    background-color: #f5f6fa;
+    margin: 0;
+    padding: 0;
+    color: #1c1c1c;
+}
+
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 26px;
+    background: linear-gradient(90deg, #ffffff, #eef3ff);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-logo {
+    width: 60px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-left: 80px;
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.brand-logo:hover {
+    transform: scale(1.2) rotate(-30deg);
+    filter: drop-shadow(0 0 10px rgba(145, 114, 255, 0.8));
+}
+
+.brand-name {
+    width: 100px;
+    object-fit: contain;
+    margin-left: 0px;
+}
+
+.main-second {
+    padding: 100px 5vw 40px;
+    width: 100%;
+}
+
+h2.page-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #2b1f55;
+}
+
+.exam-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+}
+
+.exam-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 28px;
+    width: 300px;
+    box-shadow: 0 8px 22px rgba(120, 70, 255, 0.15);
+    transition: all 0.25s ease-in-out;
+    border: 1px solid rgba(120, 70, 255, 0.08);
+    text-align: center;
+}
+
+.exam-card:hover {
+    box-shadow: 0 12px 28px rgba(120, 70, 255, 0.22);
+    transform: translateY(-3px);
+}
+
+.exam-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.exam-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #2b1f55;
+}
+
+.exam-card p {
+    font-size: 16px;
+    color: #555;
+}

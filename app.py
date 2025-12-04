@@ -207,7 +207,7 @@ def submit_result():
     cur.close()
     con.close()
 
-    return redirect(url_for("exam_result", exam_id=exam_id, profile=profile))
+    return redirect(url_for("exam_result", exam_id=exam_id))
 
 @app.route("/myexams")
 @login_required

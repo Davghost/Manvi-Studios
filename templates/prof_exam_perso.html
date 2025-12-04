@@ -1,57 +1,107 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
-    <title>Prova Dinâmica</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Prova</title>
 
-    <style>
-        textarea {
-            width: 100%;
-            min-height: 40px;
-            resize: none;
-            overflow: hidden; /* nunca mostra barras */
-        }
-        .questao {
-            margin-bottom: 25px;
-            padding: 15px;
-            border: 1px solid #ccc;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/exam.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/prof_exam_perso.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
 
-<h2>Criar Prova</h2>
+    <!--  sidebar -->
+    <div class="sidebar">
+        <h2>Menu</h2>
 
-<form id="formProva" action="{{url_for('professor.createExam')}}" method="POST">
-
-    <label><b>Nome da Prova:</b></label>
-    <input type="text" name="nomeProva" required>
-
-    <br><br>
-
-    <label><b>Descrição:</b></label>
-    <textarea name="descricaoProva" required></textarea>
-
-    <br><br>
-
-    <div id="areaQuestoes"></div>
-
-    <button type="button" id="addQuestao">Adicionar Questão</button>
-
-    <br><br>
-
-    <button type="submit">Enviar Prova</button>
-</form>
+        <a href="{{ url_for('main') }}"><i class="fa-solid fa-house"></i> Dashboard</a>
+        <a href="{{ url_for('main') }}"><i class="fa-regular fa-clipboard"></i> Provas</a>
+        <a href="{{ url_for('main') }}"><i class="fa-solid fa-magnifying-glass"></i> Ferramentas Avançadas</a>
+        <a href="{{ url_for('oftenquestions') }}"><i class="fa-regular fa-bell"></i> Feed</a>
+        <a href="{{ url_for('main') }}"><i class="fa-solid fa-comment"></i> Conversas</a>
 
 
-<script>
-    const area = document.getElementById("areaQuestoes");
-    const addBtn = document.getElementById("addQuestao");
+    </div>
 
-    // Modelo de questão SIMPLIFICADO
-    function novaQuestaoHTML(index) {
-        return `
+    <!-- Botãomobil -->
+    <button class="menu-btn" onclick="toggleSidebar()">
+        <span><i class="fa-solid fa-bars"></i></span>
+    </button>
+
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!--head-->
+    <header class="topbar">
+
+        <div class="brand">
+            <a href="{{ url_for('main') }}">
+                <img src="{{ url_for('static', filename='images/minilogo.png') }}" class="brand-logo">
+            </a>
+            <img src="{{ url_for('static', filename='images/manvistudiosdarker.png') }}" class="brand-name">
+        </div>
+
+
+    </header>
+
+    <!-- main -->
+    <main class="main-second" id="mainContent">
+        <div class="container-exam">
+            <h2>Criar Prova</h2>
+
+            <form id="formProva" action="{{ url_for('professor.createExam') }}" method="POST">
+
+                <label><b>Nome da Prova:</b></label>
+                <input type="text" name="nomeProva" required>
+
+                <br><br>
+
+                <label><b>Descrição:</b></label>
+                <textarea name="descricaoProva" required></textarea>
+
+                <br><br>
+
+                <div id="areaQuestoes"></div>
+
+                <button type="button" id="addQuestao">Adicionar Questão</button>
+
+                <br><br>
+
+                <button type="submit">Enviar Prova</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- footer -->
+    <footer>
+        <div id="exam-footer">
+        </div>
+    </footer>
+
+<!--script-->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const main = document.getElementById('mainContent');
+            const overlay = document.getElementById('overlay');
+
+            const opened = sidebar.classList.toggle('open');
+            main.classList.toggle('shift', opened);
+            overlay.classList.toggle('show', opened);
+        }
+    </script>
+
+    <!-- Script de criação de questões -->
+    <script>
+        const area = document.getElementById("areaQuestoes");
+        const addBtn = document.getElementById("addQuestao");
+
+        function novaQuestaoHTML(index) {
+            return `
             <div class="questao">
                 <h3>Questão ${index + 1}</h3>
 
@@ -82,46 +132,42 @@
                 <button type="button" class="excluir">Excluir</button>
             </div>
         `;
-    }
-
-    // Auto-resize GLOBAL para toda textarea
-    document.addEventListener("input", e => {
-        if (e.target.tagName === "TEXTAREA") {
-            e.target.style.height = "auto";
-            e.target.style.height = e.target.scrollHeight + "px";
         }
-    });
 
-    // ➕ Adicionar questão
-    addBtn.onclick = () => {
-        const index = area.children.length;
-        area.insertAdjacentHTML("beforeend", novaQuestaoHTML(index));
-        atualizarEventos();
-    };
+        document.addEventListener("input", e => {
+            if (e.target.tagName === "TEXTAREA") {
+                e.target.style.height = "auto";
+                e.target.style.height = e.target.scrollHeight + "px";
+            }
+        });
 
-    // 🔄 Renumera e corrige os names dos inputs
-    function renumerar() {
-        [...area.children].forEach((div, i) => {
-            div.querySelector("h3").textContent = "Questão " + (i + 1);
+        addBtn.onclick = () => {
+            const index = area.children.length;
+            area.insertAdjacentHTML("beforeend", novaQuestaoHTML(index));
+            atualizarEventos();
+        };
 
-            // Atualiza todos os name="questoes[x]"
-            div.querySelectorAll("[name]").forEach(el => {
-                const campo = el.name.split("][").pop().replace("]", "");
-                el.name = `questoes[${i}][${campo}]`;
+        function renumerar() {
+            [...area.children].forEach((div, i) => {
+                div.querySelector("h3").textContent = "Questão " + (i + 1);
+
+                div.querySelectorAll("[name]").forEach(el => {
+                    const campo = el.name.split("][").pop().replace("]", "");
+                    el.name = `questoes[${i}][${campo}]`;
+                });
             });
-        });
-    }
+        }
 
-    // Eventos de excluir questão
-    function atualizarEventos() {
-        document.querySelectorAll(".excluir").forEach(btn => {
-            btn.onclick = () => {
-                btn.parentElement.remove();
-                renumerar();
-            };
-        });
-    }
-</script>
+        function atualizarEventos() {
+            document.querySelectorAll(".excluir").forEach(btn => {
+                btn.onclick = () => {
+                    btn.parentElement.remove();
+                    renumerar();
+                };
+            });
+        }
+    </script>
 
 </body>
+
 </html>

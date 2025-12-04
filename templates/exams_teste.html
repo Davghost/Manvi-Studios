@@ -1,18 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
+   <title>Provas disponíveis</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/document.css') }}">
 </head>
 <body>
-   {% for exam in exams %} 
-   <a href="{{url_for('exam', exam_id=exam['id'] )}}">
-      <h3>{{exam['title']}} </h3>
-      <h3>{{exam['description']}}</h3><br>
-      <br>
-      <hr>
-   </a>
-   {% endfor %}
+   <header class="topbar">
+      <div class="brand">
+         <a href="{{ url_for('main') }}">
+            <img src="{{ url_for('static', filename='images/minilogo.png') }}" class="brand-logo">
+         </a>
+         <img src="{{ url_for('static', filename='images/manvistudiosdarker.png') }}" class="brand-name">
+      </div>
+   </header>
+
+   <main class="main-second">
+      <h2 style="text-align:center; margin-top:40px;">Escolha uma prova para começar</h2>
+      <div class="exam-container" style="display:flex; flex-wrap:wrap; gap:24px; justify-content:center; padding:24px;">
+         {% for exam in exams %}
+         <div class="exam-card" style="width:300px;">
+            <a href="{{ url_for('exam', exam_id=exam['id']) }}" style="text-decoration:none; color:inherit;">
+               <h3>{{ exam['title'] }}</h3>
+               <p>{{ exam['description'] }}</p>
+            </a>
+         </div>
+         {% endfor %}
+      </div>
+   </main>
 </body>
 </html>

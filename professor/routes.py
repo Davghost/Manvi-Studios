@@ -38,6 +38,7 @@ def dashboard():
       return render_template("prof_dash.html", grupos=grupos)
 
 @professor_bp.route("/createExam", methods=["GET", "POST"])
+@professor_required
 def createExam():
    if request.method == "GET":
       return render_template("prof_exam_perso.html")
